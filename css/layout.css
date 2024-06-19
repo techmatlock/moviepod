@@ -1,0 +1,38 @@
+.container {
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.row {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.column-full {
+  flex-basis: 100%;
+}
+
+.column-fourth {
+  flex-basis: 25%;
+}
+
+.column-half {
+  flex-basis: 50%;
+}
+
+.align-center {
+  align-items: center;
+}
+
+@media screen and (width <= 375px) {
+  .column-fourth {
+    flex-basis: 100%;
+  }
+}
