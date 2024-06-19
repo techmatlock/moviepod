@@ -1,6 +1,6 @@
 .container {
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
 .row {
@@ -31,8 +31,46 @@
   align-items: center;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-row {
+  display: flex;
+}
+
 @media screen and (width <= 375px) {
+  .row {
+    flex-direction: column;
+  }
+
   .column-fourth {
     flex-basis: 100%;
+  }
+}
+
+@media screen and (width >= 768px) {
+  .row {
+    justify-content: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .column-fourth {
+    flex-basis: calc(100% / 3);
+  }
+}
+
+@media screen and (width >= 1024px) {
+  .row {
+    flex-wrap: nowrap;
+  }
+
+  .column-fourth {
+    flex-basis: 25%;
   }
 }

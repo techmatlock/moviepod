@@ -30,6 +30,10 @@ a {
   padding: 1rem 0;
 }
 
+.nav-flex {
+  display: flex;
+}
+
 /* Card */
 
 .card {
@@ -50,7 +54,6 @@ a {
 .card-btn {
   padding: 0.75rem 1rem;
   border-radius: 2px;
-  white-space: nowrap;
   background-color: var(--clr-secondary);
   color: var(--font-white);
 }
@@ -59,9 +62,8 @@ a {
   color: var(--font-white);
 }
 
-.rating-margin {
-  margin-top: 1rem;
-  margin-left: 1rem;
+.card-date {
+  margin-bottom: 2rem;
 }
 
 .circle {
@@ -69,4 +71,21 @@ a {
   height: 50px;
   border-radius: 50%;
   background-color: var(--clr-secondary);
+}
+
+@media screen and (width <= 375px) {
+  .card-btn {
+    padding: 1rem 0.5rem;
+    max-width: 50%;
+  }
+
+  .card-rating {
+    margin-right: 1rem;
+  }
+}
+
+@media screen and (width >= 768px) {
+  .card-date {
+    margin-top: 0;
+  }
 }
