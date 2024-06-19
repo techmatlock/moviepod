@@ -7,10 +7,6 @@
   --fw-regular: 400;
 }
 
-/* body {
-  font-style: var(--ff-sans);
-} */
-
 img {
   width: 100%;
 }
@@ -18,6 +14,10 @@ img {
 a {
   text-decoration: none;
   color: var(--font-white);
+}
+
+.hidden {
+  display: none;
 }
 
 /* Header */
