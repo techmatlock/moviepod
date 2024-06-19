@@ -7,9 +7,9 @@
   --fw-regular: 400;
 }
 
-body {
+/* body {
   font-style: var(--ff-sans);
-}
+} */
 
 img {
   width: 100%;
@@ -44,6 +44,11 @@ a {
 
 .card-content {
   padding: 0 0.5rem 1rem;
+  font-family: var(--ff-sans);
+}
+
+.card-title {
+  font-weight: var(--fw-bold);
 }
 
 .card-img {
@@ -54,15 +59,18 @@ a {
 .card-btn {
   padding: 0.75rem 1rem;
   border-radius: 2px;
+  font-family: var(--ff-sans);
   background-color: var(--clr-secondary);
   color: var(--font-white);
 }
 
 .card-rating {
+  font-family: var(--ff-sans);
   color: var(--font-white);
 }
 
 .card-date {
+  font-weight: var(--fw-regular);
   margin-bottom: 2rem;
 }
 
