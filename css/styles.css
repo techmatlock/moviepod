@@ -1,6 +1,7 @@
 :root {
   --clr-primary: #f33;
   --clr-secondary: #dd5a5a;
+  --clr-hover: #e19c9c;
   --font-white: #fff;
   --ff-sans: 'Open Sans', sans-serif;
   --fw-bold: 700;
@@ -42,6 +43,11 @@ a {
   border-bottom-right-radius: 2px;
 }
 
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.5s;
+}
+
 .card-content {
   padding: 0 0.5rem 1rem;
   font-family: var(--ff-sans);
@@ -62,6 +68,10 @@ a {
   font-family: var(--ff-sans);
   background-color: var(--clr-secondary);
   color: var(--font-white);
+}
+
+.card-btn:hover {
+  background-color: var(--clr-hover);
 }
 
 .card-rating {
