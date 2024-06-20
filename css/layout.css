@@ -51,7 +51,6 @@
 
 @media screen and (width >= 768px) {
   .row {
-    gap: 0.25rem;
     flex-wrap: wrap;
   }
 
@@ -61,10 +60,6 @@
 }
 
 @media screen and (width >= 1024px) {
-  .row {
-    flex-wrap: nowrap;
-  }
-
   .column-fourth {
     flex-basis: 25%;
   }

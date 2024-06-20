@@ -1,2 +1,6 @@
 "use strict";
-/* exported data */
+let data = {
+    view: 'home',
+    entries: [],
+    nextEntryId: 1
+};
