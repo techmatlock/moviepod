@@ -33,9 +33,9 @@ async function getMovies() {
 function renderCard(data) {
     const $outerColumn = document.createElement('div');
     $outerColumn.setAttribute('class', 'column-fourth');
-    $outerColumn.setAttribute('data-entry-id', '');
     const $cardDivElement = document.createElement('div');
     $cardDivElement.setAttribute('class', 'card');
+    $cardDivElement.setAttribute('data-id', data.id.toString());
     $outerColumn.appendChild($cardDivElement);
     const $cardImage = document.createElement('img');
     $cardImage.setAttribute('class', 'card-img');

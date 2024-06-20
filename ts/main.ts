@@ -42,10 +42,10 @@ async function getMovies(): Promise<void> {
 function renderCard(data: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
   $outerColumn.setAttribute('class', 'column-fourth');
-  $outerColumn.setAttribute('data-entry-id', '');
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
+  $cardDivElement.setAttribute('data-id', data.id.toString());
 
   $outerColumn.appendChild($cardDivElement);
 
