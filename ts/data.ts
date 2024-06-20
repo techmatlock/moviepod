@@ -7,7 +7,7 @@ interface Movie {
   vote_count: number;
   vote_average: number;
   genre_ids: number[];
-  entryId: number;
+  id: number;
 }
 
 interface Data {
