@@ -31,7 +31,6 @@ async function getMovies(): Promise<void> {
 
     // Render each movie to DOM
     for (let i = 0; i < resultsArr.length; i++) {
-      resultsArr[i].entryId = data.nextEntryId;
       const movieElement = renderCard(resultsArr[i]);
       $row.appendChild(movieElement);
     }
@@ -43,7 +42,7 @@ async function getMovies(): Promise<void> {
 function renderCard(data: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
   $outerColumn.setAttribute('class', 'column-fourth');
-  $outerColumn.setAttribute('data-entry-id', data.entryId.toString());
+  $outerColumn.setAttribute('data-entry-id', '');
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
