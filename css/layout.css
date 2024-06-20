@@ -27,19 +27,13 @@
   align-items: center;
 }
 
-@media screen and (width <= 375px) {
-  .row {
-    flex-wrap: wrap;
-  }
-
-  .column-fourth {
-    flex-basis: 100%;
-  }
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
-@media screen and (width >= 768px) {
-  .row {
-    flex-wrap: wrap;
+@media screen and (width <= 375px) {
+  .column-fourth {
+    flex-basis: 100%;
   }
 }
 
