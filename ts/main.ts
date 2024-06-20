@@ -29,7 +29,6 @@ async function getMovies(): Promise<void> {
       resultsArr[i].entryId = data.nextEntryId;
       const movieElement = renderCard(resultsArr[i]);
       $row.appendChild(movieElement);
-      data.nextEntryId++;
     }
   } catch (error) {
     console.log(`Error: ${error}`);
@@ -52,7 +51,7 @@ function renderCard(data: Movie): HTMLElement {
     'src',
     'http://image.tmdb.org/t/p/w500/' + data.poster_path,
   );
-  $cardImage.setAttribute('alt', data.title);
+  $cardImage.setAttribute('alt', data.title + ' Movie Poster');
 
   $cardDivElement.appendChild($cardImage);
 
@@ -64,7 +63,7 @@ function renderCard(data: Movie): HTMLElement {
   const $cardContentRowTitle = document.createElement('div');
   $cardContentRowTitle.setAttribute('class', 'column-full row');
 
-  const $cardTitle = document.createElement('h3');
+  const $cardTitle = document.createElement('h2');
   $cardTitle.setAttribute('class', 'card-title');
   $cardTitle.textContent = data.title;
 
@@ -96,7 +95,7 @@ function renderCard(data: Movie): HTMLElement {
   $cardContent.appendChild($cardContentRowTwo);
 
   const $cardBtnRow = document.createElement('div');
-  $cardBtnRow.setAttribute('class', 'column-full flex-row');
+  $cardBtnRow.setAttribute('class', 'column-full');
 
   const $cardBtn = document.createElement('div');
   $cardBtn.setAttribute('class', 'card-btn');

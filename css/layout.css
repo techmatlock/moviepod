@@ -11,10 +11,6 @@
   justify-content: center;
 }
 
-.flex-column {
-  flex-direction: column;
-}
-
 .column-full {
   flex-basis: 100%;
 }
@@ -31,17 +27,9 @@
   align-items: center;
 }
 
-.space-between {
-  justify-content: space-between;
-}
-
-.flex-row {
-  display: flex;
-}
-
 @media screen and (width <= 375px) {
   .row {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .column-fourth {
@@ -52,10 +40,6 @@
 @media screen and (width >= 768px) {
   .row {
     flex-wrap: wrap;
-  }
-
-  .column-fourth {
-    flex-basis: calc(100% / 3);
   }
 }
 
