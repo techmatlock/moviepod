@@ -1,7 +1,7 @@
 /* global data */
 const $row = document.querySelector('.movies-row') as HTMLElement;
 
-if (!$row) throw new Error('$row not found.')
+if (!$row) throw new Error('$row not found.');
 
 async function getMovies(): Promise<void> {
   try {
@@ -15,28 +15,31 @@ async function getMovies(): Promise<void> {
     };
 
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options
+      'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
+      options,
     );
 
     if (!response.ok) throw new Error('Failed to get a response.');
 
-    const data = await response.json();
-    const resultsArr = data.results as Movie[];
+    const responseData = await response.json();
+    const resultsArr = responseData.results as Movie[];
 
+    // Render each movie to DOM
     for (let i = 0; i < resultsArr.length; i++) {
+      resultsArr[i].entryId = data.nextEntryId;
       const movieElement = renderCard(resultsArr[i]);
       $row.appendChild(movieElement);
+      data.nextEntryId++;
     }
-
   } catch (error) {
-    console.log(`Error: ${error}`)
+    console.log(`Error: ${error}`);
   }
 }
 
 function renderCard(data: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
   $outerColumn.setAttribute('class', 'column-fourth');
-  $outerColumn.setAttribute('data-entry-id', '');
+  $outerColumn.setAttribute('data-entry-id', data.entryId.toString());
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
@@ -66,10 +69,7 @@ function renderCard(data: Movie): HTMLElement {
   $cardTitle.textContent = data.title;
 
   const $cardContentRatingRow = document.createElement('div');
-  $cardContentRatingRow.setAttribute(
-    'class',
-    'column-full row',
-  );
+  $cardContentRatingRow.setAttribute('class', 'column-full row');
 
   const $spanElement = document.createElement('span');
   $spanElement.setAttribute(
