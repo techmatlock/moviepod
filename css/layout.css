@@ -16,11 +16,11 @@
 }
 
 .column-fourth {
-  flex-basis: 25%;
+  flex-basis: 100%;
 }
 
 .column-half {
-  flex-basis: 50%;
+  flex-basis: 100%;
 }
 
 .align-center {
@@ -31,14 +31,16 @@
   flex-wrap: wrap;
 }
 
-@media screen and (width <= 375px) {
-  .column-fourth {
-    flex-basis: 100%;
-  }
+.justify-end {
+  justify-content: flex-end;
 }
 
 @media screen and (width >= 1024px) {
   .column-fourth {
     flex-basis: 25%;
+  }
+
+  .column-half {
+    flex-basis: 50%;
   }
 }
