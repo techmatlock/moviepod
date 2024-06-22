@@ -211,11 +211,12 @@ a {
     margin-left: 2.6rem;
   }
 
-  .genre-margin {
-    margin-left: 13.5rem;
+  .genre-pills {
+    gap: 2rem;
+    margin-right: 6.5rem;
   }
 
-  .genre-pills {
-    gap: 1rem;
+  .genre-margin {
+    margin-right: 2rem;
   }
 }

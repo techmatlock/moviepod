@@ -1,15 +1,36 @@
 "use strict";
 /* global data */
 const $row = document.querySelector('.movies-row');
-const $mainWrapper = document.querySelector('.main-wrapper');
+const $movieDetails = document.querySelector('.movie-details');
 if (!$row)
     throw new Error('$row not found.');
-if (!$mainWrapper)
+if (!$movieDetails)
     throw new Error('$mainWrapper not found.');
 let moviesArr = [];
 const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
 const bar = 'MTEyZWEwOTg2N2Q4MmJjMzNmMTc0YzZjNjkyMSIsInN1YiI6IjY1YTAzN2I4NzI2ZmI';
 const baz = 'xMDEyYmY4YWY5ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CU2LQtrnjr4YUnU4bl7n9bFGYwY9XJOsSiyISbpsDcs';
+const genreMap = {
+    28: 'Action',
+    12: 'Adventure',
+    16: 'Animation',
+    35: 'Comedy',
+    80: 'Crime',
+    99: 'Documentary',
+    18: 'Drama',
+    10751: 'Family',
+    14: 'Fantasy',
+    36: 'History',
+    27: 'Horror',
+    10402: 'Music',
+    9648: 'Mystery',
+    10749: 'Romance',
+    878: 'Science Fiction',
+    10770: 'TV Movie',
+    53: 'Thriller',
+    10752: 'War',
+    37: 'Western',
+};
 async function getMovies() {
     try {
         const options = {
@@ -85,68 +106,124 @@ function renderCard(data) {
     return $outerColumn;
 }
 function renderMovieDetails(data) {
+    const $mainWrapper = document.createElement('div');
+    $mainWrapper.setAttribute('class', 'main-wrapper row flex-wrap');
+    $movieDetails.appendChild($mainWrapper);
     const $movieImgWrapper = document.createElement('div');
     $movieImgWrapper.setAttribute('class', 'movie__image-wrapper column-half');
+    $mainWrapper.appendChild($movieImgWrapper);
     const $movieImg = document.createElement('img');
+    $movieImg.setAttribute('class', 'learn__more-img');
     $movieImg.setAttribute('src', 'http://image.tmdb.org/t/p/w500/' + data.poster_path);
     $movieImg.setAttribute('alt', data.title + ' Movie Poster');
-    /*
-    <div class="movie__image-wrapper column-half">
-            <img class="learn__more-img" src="images/batman.jpg" alt="">
-          </div>
-            <div class="movie-summary column-half">
-                <div class="learn__more-title">
-                  <h2>Movie Title</h2>
-                </div>
-                <div class="learn__more-release">
-                  <h3>1994</h3>
-                </div>
-                <div class="learn__more-summary">
-                  <p>
-                    In "The Dark Knight," Batman, with the help of Lt. Gordon and DA Harvey Dent, faces a new foe: the Joker. This chaotic criminal mastermind wreaks havoc on Gotham City, pushing Batman to his limits and challenging his ideals. The battle tests their morals and reshapes Gotham's future.
-                  </p>
-                </div>
-              </div>
-          </div>
-          <div class="movie-divider row justify-end">
-            <div class="divider"></div>
-          </div>
-            <div class="row learn__more-share">
-              <a href=""><img src="images/share-solid.svg" alt=""></a>
-              <a href="#"><img src="images/facebook.svg" alt=""></a>
-              <a href="#"><img src="images/x-twitter.svg" alt=""></a>
-            </div>
-            <div class="movie__ranking-wrapper row">
-              <div class="column-full">
-                <div class="movie-rating row justify-end align-center">
-                  <h2>Rating</h2>
-                  <div class="pill__line-lg"></div>
-                  <h2 class="movie__ranking-margin">9.4</h2>
-                </div>
-              </div>
-              <div class="column-full">
-                <div class="movie-rating row justify-end align-center">
-                  <h2>Votes</h2>
-                  <div class="pill__line-lg"></div>
-                  <h2>18,754</h2>
-                </div>
-              </div>
-              <div class="column-full">
-                <div class="movie-rating row justify-end align-center">
-                  <div class="column-half genre-margin">
-                    <h2 class="row justify-end">Genres</h2>
-                  </div>
-                  <div class="column-half">
-                    <div class="row genre-pills">
-                      <h4 class="pill__line-sm row justify-center align-center pill-genre">action</h4>
-                      <h4 class="pill__line-sm row justify-center align-center pill-genre">comedy</h4>
-                      <h4 class="pill__line-sm row justify-center align-center pill-genre">drama</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-    */
+    $movieImgWrapper.appendChild($movieImg);
+    const $movieSummary = document.createElement('div');
+    $movieSummary.setAttribute('class', 'movie-summary column-half');
+    $mainWrapper.appendChild($movieSummary);
+    const $learnTitleDiv = document.createElement('div');
+    $learnTitleDiv.setAttribute('class', 'learn__more-title');
+    const $movieTitle = document.createElement('h2');
+    $movieTitle.textContent = data.title;
+    $learnTitleDiv.appendChild($movieTitle);
+    $movieSummary.appendChild($learnTitleDiv);
+    const $learnReleaseDiv = document.createElement('div');
+    $learnReleaseDiv.setAttribute('class', 'learn__more-release');
+    const $releaseTitle = document.createElement('h3');
+    $releaseTitle.textContent = data.release_date.split('-')[0];
+    $learnReleaseDiv.appendChild($releaseTitle);
+    $movieSummary.appendChild($learnReleaseDiv);
+    const $learnSummaryDiv = document.createElement('div');
+    $learnSummaryDiv.setAttribute('class', 'learn__more-summary');
+    const $summaryParagraph = document.createElement('p');
+    $summaryParagraph.textContent = data.overview;
+    $learnSummaryDiv.appendChild($summaryParagraph);
+    $movieSummary.appendChild($learnSummaryDiv);
+    const $movieDivider = document.createElement('div');
+    $movieDivider.setAttribute('class', 'movie-divider row justify-end');
+    const $divider = document.createElement('div');
+    $divider.setAttribute('class', 'divider');
+    $movieDivider.appendChild($divider);
+    $movieDetails.appendChild($movieDivider);
+    const $learnShareDiv = document.createElement('div');
+    $learnShareDiv.setAttribute('class', 'row learn__more-share');
+    const $shareLink = document.createElement('a');
+    $shareLink.setAttribute('href', '#');
+    const $shareImg = document.createElement('img');
+    $shareImg.setAttribute('src', 'images/share-solid.svg');
+    $shareImg.setAttribute('alt', 'a share icon');
+    $shareLink.appendChild($shareImg);
+    $learnShareDiv.appendChild($shareLink);
+    const $facebookLink = document.createElement('a');
+    $facebookLink.setAttribute('href', '#');
+    const $facebookImg = document.createElement('img');
+    $facebookImg.setAttribute('src', 'images/facebook.svg');
+    $facebookImg.setAttribute('alt', 'a facebook share link');
+    $facebookLink.appendChild($facebookImg);
+    $learnShareDiv.appendChild($facebookLink);
+    const $xLink = document.createElement('a');
+    $xLink.setAttribute('href', '#');
+    const $xImg = document.createElement('img');
+    $xImg.setAttribute('src', 'images/x-twitter.svg');
+    $xImg.setAttribute('alt', 'a x/Twitter link');
+    $xLink.appendChild($xImg);
+    $learnShareDiv.appendChild($xLink);
+    $movieDetails.appendChild($learnShareDiv);
+    const $movieRankingWrapper = document.createElement('div');
+    $movieRankingWrapper.setAttribute('class', 'movie__ranking-wrapper row');
+    const $columnRating = document.createElement('div');
+    $columnRating.setAttribute('class', 'column-full');
+    $movieRankingWrapper.appendChild($columnRating);
+    const $movieRatingDiv = document.createElement('div');
+    $movieRatingDiv.setAttribute('class', 'movie-rating row justify-end align-center');
+    $columnRating.appendChild($movieRatingDiv);
+    const $ratingTitle = document.createElement('h2');
+    $ratingTitle.textContent = 'Rating';
+    const $largePill1 = document.createElement('div');
+    $largePill1.setAttribute('class', 'pill__line-lg');
+    const $movieRanking = document.createElement('h2');
+    $movieRanking.setAttribute('class', 'movie__ranking-margin');
+    $movieRanking.textContent = data.vote_average.toFixed(1).toString();
+    $movieRatingDiv.appendChild($ratingTitle);
+    $movieRatingDiv.appendChild($largePill1);
+    $movieRatingDiv.appendChild($movieRanking);
+    $movieDetails.appendChild($movieRankingWrapper);
+    const $columnVotes = document.createElement('div');
+    $columnVotes.setAttribute('class', 'column-full');
+    const $movieVotesDiv = document.createElement('div');
+    $movieVotesDiv.setAttribute('class', 'movie-rating row justify-end align-center');
+    $columnVotes.appendChild($movieVotesDiv);
+    const $votes = document.createElement('h2');
+    $votes.textContent = 'Votes';
+    const $largePill2 = document.createElement('div');
+    $largePill2.setAttribute('class', 'pill__line-lg');
+    const $votesNumber = document.createElement('h2');
+    $votesNumber.textContent = data.vote_count.toLocaleString();
+    $movieVotesDiv.appendChild($votes);
+    $movieVotesDiv.appendChild($largePill2);
+    $movieVotesDiv.appendChild($votesNumber);
+    $movieRankingWrapper.appendChild($columnVotes);
+    $movieDetails.appendChild($movieRankingWrapper);
+    const $columnGenre = document.createElement('div');
+    $columnGenre.setAttribute('class', 'column-full');
+    const $movieGenreDiv = document.createElement('div');
+    $movieGenreDiv.setAttribute('class', 'movie-rating row justify-end align-center');
+    $columnGenre.appendChild($movieGenreDiv);
+    const $genreTitle = document.createElement('h2');
+    $genreTitle.setAttribute('class', 'row justify-end');
+    $genreTitle.textContent = 'Genres';
+    $movieGenreDiv.appendChild($genreTitle);
+    const $genrePillsDiv = document.createElement('div');
+    $genrePillsDiv.setAttribute('class', 'row genre-pills');
+    $movieGenreDiv.appendChild($genrePillsDiv);
+    for (let i = 0; i < data.genre_ids.length; i++) {
+        const $genrePill = document.createElement('h4');
+        const genreId = data.genre_ids[i];
+        const genreName = genreMap[genreId];
+        $genrePill.setAttribute('class', 'pill__line-sm row justify-center align-center pill-genre');
+        $genrePill.textContent = genreName;
+        $genrePillsDiv.appendChild($genrePill);
+    }
+    $movieRankingWrapper.appendChild($columnGenre);
 }
 $row.addEventListener('click', (event) => {
     const $eventTarget = event.target;
@@ -160,8 +237,7 @@ $row.addEventListener('click', (event) => {
         throw new Error('cardId not found.');
     for (let i = 0; i < moviesArr.length; i++) {
         if (moviesArr[i].id === +cardId) {
-            const card = renderMovieDetails(moviesArr[i]);
-            $mainWrapper.appendChild(card);
+            renderMovieDetails(moviesArr[i]);
         }
     }
 });
