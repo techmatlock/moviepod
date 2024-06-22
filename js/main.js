@@ -2,14 +2,11 @@
 /* global data */
 const $row = document.querySelector('.movies-row');
 const $movieDetails = document.querySelector('.movie-details');
-const $learnMoreView = document.querySelector('[data-view="learn-more"]');
 const $dataViewElements = document.querySelectorAll('[data-view]');
 if (!$row)
     throw new Error('$row not found.');
 if (!$movieDetails)
     throw new Error('$movieDetails not found.');
-if (!$learnMoreView)
-    throw new Error('$learnMoreView not found.');
 if (!$dataViewElements)
     throw new Error('$dataViewElements not found.');
 let moviesArr = [];
