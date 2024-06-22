@@ -2,10 +2,16 @@
 /* global data */
 const $row = document.querySelector('.movies-row');
 const $movieDetails = document.querySelector('.movie-details');
+const $learnMoreView = document.querySelector('[data-view="learn-more"]');
+const $dataViewElements = document.querySelectorAll('[data-view]');
 if (!$row)
     throw new Error('$row not found.');
 if (!$movieDetails)
-    throw new Error('$mainWrapper not found.');
+    throw new Error('$movieDetails not found.');
+if (!$learnMoreView)
+    throw new Error('$learnMoreView not found.');
+if (!$dataViewElements)
+    throw new Error('$dataViewElements not found.');
 let moviesArr = [];
 const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
 const bar = 'MTEyZWEwOTg2N2Q4MmJjMzNmMTc0YzZjNjkyMSIsInN1YiI6IjY1YTAzN2I4NzI2ZmI';
@@ -56,6 +62,17 @@ async function getMovies() {
     catch (error) {
         console.log(`Error: ${error}`);
     }
+}
+function viewSwap(view) {
+    $dataViewElements.forEach((element) => {
+        const dataViewValue = element.getAttribute('data-view');
+        if (view === dataViewValue) {
+            element.classList.remove('hidden');
+        }
+        else {
+            element.classList.add('hidden');
+        }
+    });
 }
 function renderCard(data) {
     const $outerColumn = document.createElement('div');
@@ -146,13 +163,12 @@ function renderMovieDetails(data) {
     $movieDetails.appendChild($movieDivider);
     const $learnShareDiv = document.createElement('div');
     $learnShareDiv.setAttribute('class', 'row learn__more-share');
-    const $shareLink = document.createElement('a');
-    $shareLink.setAttribute('href', '#');
+    const $shareIcon = document.createElement('span');
     const $shareImg = document.createElement('img');
     $shareImg.setAttribute('src', 'images/share-solid.svg');
     $shareImg.setAttribute('alt', 'a share icon');
-    $shareLink.appendChild($shareImg);
-    $learnShareDiv.appendChild($shareLink);
+    $shareIcon.appendChild($shareImg);
+    $learnShareDiv.appendChild($shareIcon);
     const $facebookLink = document.createElement('a');
     $facebookLink.setAttribute('href', '#');
     const $facebookImg = document.createElement('img');
@@ -237,6 +253,7 @@ $row.addEventListener('click', (event) => {
         throw new Error('cardId not found.');
     for (let i = 0; i < moviesArr.length; i++) {
         if (moviesArr[i].id === +cardId) {
+            viewSwap('learn-more');
             renderMovieDetails(moviesArr[i]);
         }
     }

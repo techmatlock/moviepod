@@ -1,9 +1,13 @@
 /* global data */
 const $row = document.querySelector('.movies-row') as HTMLElement;
 const $movieDetails = document.querySelector('.movie-details') as HTMLElement;
+const $learnMoreView = document.querySelector('[data-view="learn-more"]');
+const $dataViewElements = document.querySelectorAll('[data-view]');
 
 if (!$row) throw new Error('$row not found.');
-if (!$movieDetails) throw new Error('$mainWrapper not found.');
+if (!$movieDetails) throw new Error('$movieDetails not found.');
+if (!$learnMoreView) throw new Error('$learnMoreView not found.');
+if (!$dataViewElements) throw new Error('$dataViewElements not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -66,6 +70,17 @@ async function getMovies(): Promise<void> {
   } catch (error) {
     console.log(`Error: ${error}`);
   }
+}
+
+function viewSwap(view: string): void {
+  $dataViewElements.forEach((element) => {
+    const dataViewValue = element.getAttribute('data-view');
+    if (view === dataViewValue) {
+      element.classList.remove('hidden');
+    } else {
+      element.classList.add('hidden');
+    }
+  })
 }
 
 function renderCard(data: Movie): HTMLElement {
@@ -212,15 +227,14 @@ function renderMovieDetails(data: Movie): void {
   const $learnShareDiv = document.createElement('div');
   $learnShareDiv.setAttribute('class', 'row learn__more-share');
 
-  const $shareLink = document.createElement('a');
-  $shareLink.setAttribute('href', '#');
+  const $shareIcon = document.createElement('span');
 
   const $shareImg = document.createElement('img');
   $shareImg.setAttribute('src', 'images/share-solid.svg');
   $shareImg.setAttribute('alt', 'a share icon');
 
-  $shareLink.appendChild($shareImg);
-  $learnShareDiv.appendChild($shareLink);
+  $shareIcon.appendChild($shareImg);
+  $learnShareDiv.appendChild($shareIcon);
 
 
   const $facebookLink = document.createElement('a');
@@ -346,6 +360,7 @@ $row.addEventListener('click', (event: Event): void => {
 
   for (let i = 0; i < moviesArr.length; i++) {
     if (moviesArr[i].id === +cardId) {
+      viewSwap('learn-more');
       renderMovieDetails(moviesArr[i]);
     }
   }
