@@ -1,13 +1,57 @@
 /* global data */
 const $row = document.querySelector('.movies-row') as HTMLElement;
+const $movieDetails = document.querySelector('.movie-details') as HTMLElement;
+const $dataViewElements = document.querySelectorAll('[data-view]');
+const $movieImg = document.querySelector('.learn__more-img') as HTMLElement;
+const $movieTitle = document.querySelector('.movie-title') as HTMLElement;
+const $releaseTitle = document.querySelector('.release-title') as HTMLElement;
+const $summary = document.querySelector('.summary') as HTMLElement;
+const $movieRankingWrapper = document.querySelector('.movie__ranking-wrapper') as HTMLElement;
+const $movieRanking = document.querySelector(
+  '.movie-ranking',
+) as HTMLElement;
+const $votesNumber = document.querySelector(
+  '.votes-number',
+) as HTMLElement;
+const $genrePillsDiv = document.querySelector('.genre-pills') as HTMLElement;
+
+
 
 if (!$row) throw new Error('$row not found.');
+if (!$movieDetails) throw new Error('$movieDetails not found.');
+if (!$dataViewElements) throw new Error('$dataViewElements not found.');
+if (!$movieImg) throw new Error('$movieImg not found.');
+if (!$movieTitle) throw new Error('$movieTitle not found.');
+if (!$releaseTitle) throw new Error('$releaseTitle not found.');
+if (!$summary) throw new Error('$summary not found.');
+if (!$movieRankingWrapper) throw new Error('$movieRankingWrapper not found.');
+if (!$movieRanking) throw new Error('$movieRanking not found.');
+if (!$votesNumber) throw new Error('$votesNumber not found.');
+if (!$genrePillsDiv) throw new Error('$genrePillsDiv not found.');
 
-const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
-const bar =
-  'MTEyZWEwOTg2N2Q4MmJjMzNmMTc0YzZjNjkyMSIsInN1YiI6IjY1YTAzN2I4NzI2ZmI';
-const baz =
-  'xMDEyYmY4YWY5ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CU2LQtrnjr4YUnU4bl7n9bFGYwY9XJOsSiyISbpsDcs';
+let moviesArr: Movie[] = [];
+
+const genreMap: Record<number, string> = {
+    28: 'Action',
+    12: 'Adventure',
+    16: 'Animation',
+    35: 'Comedy',
+    80: 'Crime',
+    99: 'Documentary',
+    18: 'Drama',
+    10751: 'Family',
+    14: 'Fantasy',
+    36: 'History',
+    27: 'Horror',
+    10402: 'Music',
+    9648: 'Mystery',
+    10749: 'Romance',
+    878: 'Science Fiction',
+    10770: 'TV Movie',
+    53: 'Thriller',
+    10752: 'War',
+    37: 'Western',
+};
 
 async function getMovies(): Promise<void> {
   try {
@@ -29,9 +73,11 @@ async function getMovies(): Promise<void> {
     const responseData = await response.json();
     const resultsArr = responseData.results as Movie[];
 
+    // Add to global variable
+    moviesArr = resultsArr;
+
     // Render each movie to DOM
     for (let i = 0; i < resultsArr.length; i++) {
-      resultsArr[i].entryId = data.nextEntryId;
       const movieElement = renderCard(resultsArr[i]);
       $row.appendChild(movieElement);
     }
@@ -40,13 +86,24 @@ async function getMovies(): Promise<void> {
   }
 }
 
+function viewSwap(view: string): void {
+  $dataViewElements.forEach((element) => {
+    const dataViewValue = element.getAttribute('data-view');
+    if (view === dataViewValue) {
+      element.classList.remove('hidden');
+    } else {
+      element.classList.add('hidden');
+    }
+  })
+}
+
 function renderCard(data: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
   $outerColumn.setAttribute('class', 'column-fourth');
-  $outerColumn.setAttribute('data-entry-id', data.entryId.toString());
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
+  $cardDivElement.setAttribute('data-id', data.id.toString());
 
   $outerColumn.appendChild($cardDivElement);
 
@@ -117,5 +174,55 @@ function renderCard(data: Movie): HTMLElement {
 
   return $outerColumn;
 }
+
+function renderMovieDetails(data: Movie): void {
+  $movieImg.setAttribute(
+    'src',
+    'http://image.tmdb.org/t/p/w500/' + data.poster_path,
+  );
+  $movieImg.setAttribute('alt', data.title + ' Movie Poster');
+
+  $movieTitle.textContent = data.title;
+
+  $releaseTitle.textContent = data.release_date.split('-')[0];
+
+  $summary.textContent = data.overview;
+
+  $movieRankingWrapper.setAttribute('class', 'movie__ranking-wrapper row');
+
+  $movieRanking.textContent = data.vote_average.toFixed(1).toString();
+
+  $movieDetails.appendChild($movieRankingWrapper);
+
+  $votesNumber.textContent = data.vote_count.toLocaleString();
+
+  for (let i = 0; i < data.genre_ids.length; i++) {
+    const $genrePill = document.createElement('h4');
+    const genreId = data.genre_ids[i];
+    const genreName: string = genreMap[genreId];
+    $genrePill.setAttribute('class', 'pill__line-sm row justify-center align-center pill-genre');
+    $genrePill.textContent = genreName;
+    $genrePillsDiv.appendChild($genrePill);
+  }
+}
+
+$row.addEventListener('click', (event: Event): void => {
+  const $eventTarget = event.target as HTMLElement;
+
+  if (!$eventTarget.matches('a')) return;
+
+  const $card = $eventTarget.closest('.card');
+  if (!$card) throw new Error('$card not found');
+
+  const cardId = $card?.getAttribute('data-id');
+  if (!cardId) throw new Error('cardId not found.')
+
+  for (let i = 0; i < moviesArr.length; i++) {
+    if (moviesArr[i].id === +cardId) {
+      viewSwap('learn-more');
+      renderMovieDetails(moviesArr[i]);
+    }
+  }
+})
 
 getMovies();
