@@ -14,8 +14,7 @@ const $votesNumber = document.querySelector(
   '.votes-number',
 ) as HTMLElement;
 const $genrePillsDiv = document.querySelector('.genre-pills') as HTMLElement;
-
-
+const $toggleBtn = document.querySelector('.toggle-btn') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -28,6 +27,7 @@ if (!$movieRankingWrapper) throw new Error('$movieRankingWrapper not found.');
 if (!$movieRanking) throw new Error('$movieRanking not found.');
 if (!$votesNumber) throw new Error('$votesNumber not found.');
 if (!$genrePillsDiv) throw new Error('$genrePillsDiv not found.');
+if (!$toggleBtn) throw new Error('$toggleBtn not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -223,6 +223,10 @@ $row.addEventListener('click', (event: Event): void => {
       renderMovieDetails(moviesArr[i]);
     }
   }
+})
+
+$toggleBtn.addEventListener('click', (): void => {
+  console.log('clicked')
 })
 
 getMovies();

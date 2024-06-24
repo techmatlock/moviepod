@@ -11,6 +11,7 @@ const $movieRankingWrapper = document.querySelector('.movie__ranking-wrapper');
 const $movieRanking = document.querySelector('.movie-ranking');
 const $votesNumber = document.querySelector('.votes-number');
 const $genrePillsDiv = document.querySelector('.genre-pills');
+const $toggleBtn = document.querySelector('.toggle-btn');
 if (!$row)
     throw new Error('$row not found.');
 if (!$movieDetails)
@@ -33,6 +34,8 @@ if (!$votesNumber)
     throw new Error('$votesNumber not found.');
 if (!$genrePillsDiv)
     throw new Error('$genrePillsDiv not found.');
+if (!$toggleBtn)
+    throw new Error('$toggleBtn not found.');
 let moviesArr = [];
 const genreMap = {
     28: 'Action',
@@ -175,5 +178,8 @@ $row.addEventListener('click', (event) => {
             renderMovieDetails(moviesArr[i]);
         }
     }
+});
+$toggleBtn.addEventListener('click', () => {
+    console.log('clicked');
 });
 getMovies();
