@@ -189,6 +189,6 @@ $sidebarToggle.addEventListener('click', () => {
     $sidebar.classList.toggle('hidden');
 });
 $mainToggle.addEventListener('click', () => {
-    console.log('mainToggle clicked');
+    $sidebar.classList.toggle('hidden');
 });
 getMovies();

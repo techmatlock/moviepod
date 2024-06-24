@@ -234,7 +234,7 @@ $sidebarToggle.addEventListener('click', (): void => {
 })
 
 $mainToggle.addEventListener('click', (): void => {
-  console.log('mainToggle clicked');
+  $sidebar.classList.toggle('hidden');
 });
 
 getMovies();
