@@ -20,6 +20,10 @@ a {
   display: none;
 }
 
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 /* Header */
 
 .header-bg {
@@ -153,6 +157,7 @@ a {
   width: 300px;
   height: 100%;
   z-index: 1;
+  transition: all ease-in-out 3s;
   background-color: #fff;
 }
 

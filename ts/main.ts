@@ -17,6 +17,7 @@ const $genrePillsDiv = document.querySelector('.genre-pills') as HTMLElement;
 const $sidebarToggle = document.querySelector('#sidebar-toggle') as HTMLElement;
 const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
 const $sidebar = document.querySelector('.sidebar') as HTMLElement;
+const $main = document.querySelector('main') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -32,6 +33,7 @@ if (!$genrePillsDiv) throw new Error('$genrePillsDiv not found.');
 if (!$sidebarToggle) throw new Error('$sidebarToggle not found.');
 if (!$mainToggle) throw new Error('$mainToggle not found.');
 if (!$sidebar) throw new Error('$sidebar not found.');
+if (!$main) throw new Error('$main not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -231,10 +233,12 @@ $row.addEventListener('click', (event: Event): void => {
 
 $sidebarToggle.addEventListener('click', (): void => {
   $sidebar.classList.toggle('hidden');
+  $main.classList.toggle('overlay');
 })
 
 $mainToggle.addEventListener('click', (): void => {
   $sidebar.classList.toggle('hidden');
+  $main.classList.toggle('overlay');
 });
 
 getMovies();

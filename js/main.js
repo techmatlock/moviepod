@@ -14,6 +14,7 @@ const $genrePillsDiv = document.querySelector('.genre-pills');
 const $sidebarToggle = document.querySelector('#sidebar-toggle');
 const $mainToggle = document.querySelector('#main-toggle');
 const $sidebar = document.querySelector('.sidebar');
+const $main = document.querySelector('main');
 if (!$row)
     throw new Error('$row not found.');
 if (!$movieDetails)
@@ -42,6 +43,8 @@ if (!$mainToggle)
     throw new Error('$mainToggle not found.');
 if (!$sidebar)
     throw new Error('$sidebar not found.');
+if (!$main)
+    throw new Error('$main not found.');
 let moviesArr = [];
 const genreMap = {
     28: 'Action',
@@ -187,8 +190,10 @@ $row.addEventListener('click', (event) => {
 });
 $sidebarToggle.addEventListener('click', () => {
     $sidebar.classList.toggle('hidden');
+    $main.classList.toggle('overlay');
 });
 $mainToggle.addEventListener('click', () => {
     $sidebar.classList.toggle('hidden');
+    $main.classList.toggle('overlay');
 });
 getMovies();
