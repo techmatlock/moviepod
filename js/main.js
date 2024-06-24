@@ -15,6 +15,7 @@ const $sidebarToggle = document.querySelector('#sidebar-toggle');
 const $mainToggle = document.querySelector('#main-toggle');
 const $sidebar = document.querySelector('.sidebar');
 const $main = document.querySelector('main');
+const $sidebarMenu = document.querySelector('#sidebar-menu');
 if (!$row)
     throw new Error('$row not found.');
 if (!$movieDetails)
@@ -45,6 +46,8 @@ if (!$sidebar)
     throw new Error('$sidebar not found.');
 if (!$main)
     throw new Error('$main not found.');
+if (!$sidebarMenu)
+    throw new Error('$sidebarMenu not found.');
 let moviesArr = [];
 const genreMap = {
     28: 'Action',
@@ -195,5 +198,16 @@ $sidebarToggle.addEventListener('click', () => {
 $mainToggle.addEventListener('click', () => {
     $sidebar.classList.toggle('hidden');
     $main.classList.toggle('overlay');
+});
+$sidebarMenu.addEventListener('click', (event) => {
+    const $eventTarget = event.target;
+    if (!$eventTarget.matches('a'))
+        return;
+    const selectedView = $eventTarget.closest('a')?.getAttribute('id');
+    if (!selectedView)
+        throw new Error('selectedView not found.');
+    $sidebar.classList.toggle('hidden');
+    $main.classList.toggle('overlay');
+    viewSwap(selectedView);
 });
 getMovies();

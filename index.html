@@ -24,16 +24,16 @@
           </div>
         </div>
       </div>
-      <div class="sidebar-menu">
+      <div id="sidebar-menu">
         <ul class="sidebar-links">
           <li class="sidebar-link">
-            <a class="row align-center gap-10" href="#">
+            <a class="row align-center gap-10" id="home" href="#">
               <img class="sidebar-icon" src="images/house-solid.svg" alt="a home link" />
               Home
             </a>
           </li>
           <li class="sidebar-link">
-            <a class="row align-center gap-10" href="#">
+            <a class="row align-center gap-10" id="favorites" href="#">
               <img class="sidebar-icon" src="images/heart-solid.svg" alt="a favorites link" />
               Favorites
             </a>
@@ -60,7 +60,13 @@
           </div>
           <div class="row movies-row flex-wrap"></div>
         </div>
-        <div data-view="favorites" class="hidden"></div>
+        <div data-view="favorites" class="hidden">
+          <div class="row">
+            <div class="column-full">
+              <h1 class="page-title">Favorites</h1>
+            </div>
+          </div>
+        </div>
       </div>
       <div data-view="learn-more" class="hidden">
         <div class="movie-details">
