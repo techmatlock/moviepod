@@ -2,10 +2,32 @@
 const $row = document.querySelector('.movies-row') as HTMLElement;
 const $movieDetails = document.querySelector('.movie-details') as HTMLElement;
 const $dataViewElements = document.querySelectorAll('[data-view]');
+const $movieImg = document.querySelector('.learn__more-img') as HTMLElement;
+const $movieTitle = document.querySelector('.movie-title') as HTMLElement;
+const $releaseTitle = document.querySelector('.release-title') as HTMLElement;
+const $summary = document.querySelector('.summary') as HTMLElement;
+const $movieRankingWrapper = document.querySelector('.movie__ranking-wrapper') as HTMLElement;
+const $movieRanking = document.querySelector(
+  '.movie-ranking',
+) as HTMLElement;
+const $votesNumber = document.querySelector(
+  '.votes-number',
+) as HTMLElement;
+const $genrePillsDiv = document.querySelector('.genre-pills') as HTMLElement;
+
+
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
 if (!$dataViewElements) throw new Error('$dataViewElements not found.');
+if (!$movieImg) throw new Error('$movieImg not found.');
+if (!$movieTitle) throw new Error('$movieTitle not found.');
+if (!$releaseTitle) throw new Error('$releaseTitle not found.');
+if (!$summary) throw new Error('$summary not found.');
+if (!$movieRankingWrapper) throw new Error('$movieRankingWrapper not found.');
+if (!$movieRanking) throw new Error('$movieRanking not found.');
+if (!$votesNumber) throw new Error('$votesNumber not found.');
+if (!$genrePillsDiv) throw new Error('$genrePillsDiv not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -154,178 +176,25 @@ function renderCard(data: Movie): HTMLElement {
 }
 
 function renderMovieDetails(data: Movie): void {
-  const $mainWrapper = document.createElement('div');
-  $mainWrapper.setAttribute('class', 'main-wrapper row flex-wrap');
-
-  $movieDetails.appendChild($mainWrapper);
-
-  const $movieImgWrapper = document.createElement('div');
-  $movieImgWrapper.setAttribute('class', 'movie__image-wrapper column-half');
-
-  $mainWrapper.appendChild($movieImgWrapper);
-
-  const $movieImg = document.createElement('img');
-  $movieImg.setAttribute('class', 'learn__more-img');
   $movieImg.setAttribute(
     'src',
     'http://image.tmdb.org/t/p/w500/' + data.poster_path,
   );
   $movieImg.setAttribute('alt', data.title + ' Movie Poster');
 
-  $movieImgWrapper.appendChild($movieImg);
-
-  const $movieSummary = document.createElement('div');
-  $movieSummary.setAttribute('class', 'movie-summary column-half');
-
-  $mainWrapper.appendChild($movieSummary);
-
-  const $learnTitleDiv = document.createElement('div');
-  $learnTitleDiv.setAttribute('class', 'learn__more-title');
-
-  const $movieTitle = document.createElement('h2');
   $movieTitle.textContent = data.title;
 
-  $learnTitleDiv.appendChild($movieTitle);
-  $movieSummary.appendChild($learnTitleDiv);
-
-  const $learnReleaseDiv = document.createElement('div');
-  $learnReleaseDiv.setAttribute('class', 'learn__more-release');
-
-  const $releaseTitle = document.createElement('h3');
   $releaseTitle.textContent = data.release_date.split('-')[0];
 
-  $learnReleaseDiv.appendChild($releaseTitle);
-  $movieSummary.appendChild($learnReleaseDiv);
+  $summary.textContent = data.overview;
 
-  const $learnSummaryDiv = document.createElement('div');
-  $learnSummaryDiv.setAttribute('class', 'learn__more-summary');
-
-  const $summaryParagraph = document.createElement('p');
-  $summaryParagraph.textContent = data.overview;
-
-  $learnSummaryDiv.appendChild($summaryParagraph);
-  $movieSummary.appendChild($learnSummaryDiv);
-
-  const $movieDivider = document.createElement('div');
-  $movieDivider.setAttribute('class', 'movie-divider row justify-end');
-
-  const $divider = document.createElement('div');
-  $divider.setAttribute('class', 'divider');
-
-  $movieDivider.appendChild($divider);
-
-  $movieDetails.appendChild($movieDivider);
-
-  const $learnShareDiv = document.createElement('div');
-  $learnShareDiv.setAttribute('class', 'row learn__more-share');
-
-  const $shareIcon = document.createElement('span');
-
-  const $shareImg = document.createElement('img');
-  $shareImg.setAttribute('src', 'images/share-solid.svg');
-  $shareImg.setAttribute('alt', 'a share icon');
-
-  $shareIcon.appendChild($shareImg);
-  $learnShareDiv.appendChild($shareIcon);
-
-
-  const $facebookLink = document.createElement('a');
-  $facebookLink.setAttribute('href', '#');
-
-  const $facebookImg = document.createElement('img');
-  $facebookImg.setAttribute('src', 'images/facebook.svg');
-  $facebookImg.setAttribute('alt', 'a facebook share link');
-
-  $facebookLink.appendChild($facebookImg);
-  $learnShareDiv.appendChild($facebookLink);
-
-  const $xLink = document.createElement('a');
-  $xLink.setAttribute('href', '#');
-
-  const $xImg = document.createElement('img');
-  $xImg.setAttribute('src', 'images/x-twitter.svg');
-  $xImg.setAttribute('alt', 'a x/Twitter link');
-
-  $xLink.appendChild($xImg);
-  $learnShareDiv.appendChild($xLink);
-
-  $movieDetails.appendChild($learnShareDiv);
-
-  const $movieRankingWrapper = document.createElement('div');
   $movieRankingWrapper.setAttribute('class', 'movie__ranking-wrapper row');
 
-  const $columnRating = document.createElement('div');
-  $columnRating.setAttribute('class', 'column-full');
-
-  $movieRankingWrapper.appendChild($columnRating);
-
-  const $movieRatingDiv = document.createElement('div');
-  $movieRatingDiv.setAttribute('class', 'movie-rating row justify-end align-center');
-
-  $columnRating.appendChild($movieRatingDiv);
-
-  const $ratingTitle = document.createElement('h2');
-  $ratingTitle.textContent = 'Rating';
-
-  const $largePill1 = document.createElement('div');
-  $largePill1.setAttribute('class', 'pill__line-lg');
-
-  const $movieRanking = document.createElement('h2');
-  $movieRanking.setAttribute('class', 'movie__ranking-margin');
   $movieRanking.textContent = data.vote_average.toFixed(1).toString();
 
-  $movieRatingDiv.appendChild($ratingTitle);
-  $movieRatingDiv.appendChild($largePill1);
-  $movieRatingDiv.appendChild($movieRanking);
-
   $movieDetails.appendChild($movieRankingWrapper);
 
-  const $columnVotes = document.createElement('div');
-  $columnVotes.setAttribute('class', 'column-full');
-
-  const $movieVotesDiv = document.createElement('div');
-  $movieVotesDiv.setAttribute('class', 'movie-rating row justify-end align-center');
-
-  $columnVotes.appendChild($movieVotesDiv);
-
-  const $votes = document.createElement('h2');
-  $votes.textContent = 'Votes';
-
-  const $largePill2 = document.createElement('div');
-  $largePill2.setAttribute('class', 'pill__line-lg');
-
-  const $votesNumber = document.createElement('h2');
   $votesNumber.textContent = data.vote_count.toLocaleString();
-
-  $movieVotesDiv.appendChild($votes);
-  $movieVotesDiv.appendChild($largePill2);
-  $movieVotesDiv.appendChild($votesNumber);
-
-  $movieRankingWrapper.appendChild($columnVotes);
-
-  $movieDetails.appendChild($movieRankingWrapper);
-
-  const $columnGenre = document.createElement('div');
-  $columnGenre.setAttribute('class', 'column-full');
-
-  const $movieGenreDiv = document.createElement('div');
-  $movieGenreDiv.setAttribute(
-    'class',
-    'movie-rating row justify-end align-center',
-  );
-
-  $columnGenre.appendChild($movieGenreDiv);
-
-  const $genreTitle = document.createElement('h2');
-  $genreTitle.setAttribute('class', 'row justify-end');
-  $genreTitle.textContent = 'Genres';
-
-  $movieGenreDiv.appendChild($genreTitle);
-
-  const $genrePillsDiv = document.createElement('div');
-  $genrePillsDiv.setAttribute('class', 'row genre-pills');
-
-  $movieGenreDiv.appendChild($genrePillsDiv);
 
   for (let i = 0; i < data.genre_ids.length; i++) {
     const $genrePill = document.createElement('h4');
@@ -335,8 +204,6 @@ function renderMovieDetails(data: Movie): void {
     $genrePill.textContent = genreName;
     $genrePillsDiv.appendChild($genrePill);
   }
-
-  $movieRankingWrapper.appendChild($columnGenre);
 }
 
 $row.addEventListener('click', (event: Event): void => {
