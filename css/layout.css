@@ -11,15 +11,9 @@
   justify-content: center;
 }
 
+.column-fourth,
+.column-half,
 .column-full {
-  flex-basis: 100%;
-}
-
-.column-fourth {
-  flex-basis: 100%;
-}
-
-.column-half {
   flex-basis: 100%;
 }
 
