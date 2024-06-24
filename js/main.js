@@ -11,7 +11,9 @@ const $movieRankingWrapper = document.querySelector('.movie__ranking-wrapper');
 const $movieRanking = document.querySelector('.movie-ranking');
 const $votesNumber = document.querySelector('.votes-number');
 const $genrePillsDiv = document.querySelector('.genre-pills');
-const $toggleBtn = document.querySelector('.toggle-btn');
+const $sidebarToggle = document.querySelector('#sidebar-toggle');
+const $mainToggle = document.querySelector('#main-toggle');
+const $sidebar = document.querySelector('.sidebar');
 if (!$row)
     throw new Error('$row not found.');
 if (!$movieDetails)
@@ -34,8 +36,12 @@ if (!$votesNumber)
     throw new Error('$votesNumber not found.');
 if (!$genrePillsDiv)
     throw new Error('$genrePillsDiv not found.');
-if (!$toggleBtn)
-    throw new Error('$toggleBtn not found.');
+if (!$sidebarToggle)
+    throw new Error('$sidebarToggle not found.');
+if (!$mainToggle)
+    throw new Error('$mainToggle not found.');
+if (!$sidebar)
+    throw new Error('$sidebar not found.');
 let moviesArr = [];
 const genreMap = {
     28: 'Action',
@@ -179,7 +185,10 @@ $row.addEventListener('click', (event) => {
         }
     }
 });
-$toggleBtn.addEventListener('click', () => {
-    console.log('clicked');
+$sidebarToggle.addEventListener('click', () => {
+    $sidebar.classList.toggle('hidden');
+});
+$mainToggle.addEventListener('click', () => {
+    console.log('mainToggle clicked');
 });
 getMovies();
