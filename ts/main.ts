@@ -17,6 +17,7 @@ const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
 const $sidebar = document.querySelector('.sidebar') as HTMLElement;
 const $main = document.querySelector('main') as HTMLElement;
 const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
+const $detailsFavoriteIcon = document.querySelector('.details-icon') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -34,6 +35,7 @@ if (!$mainToggle) throw new Error('$mainToggle not found.');
 if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
+if (!$detailsFavoriteIcon) throw new Error('$detailsFavoriteIcon not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -104,13 +106,13 @@ function viewSwap(view: string): void {
   });
 }
 
-function renderCard(data: Movie): HTMLElement {
+function renderCard(movieData: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
   $outerColumn.setAttribute('class', 'column-fourth');
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
-  $cardDivElement.setAttribute('data-id', data.id.toString());
+  $cardDivElement.setAttribute('data-id', movieData.id.toString());
 
   $outerColumn.appendChild($cardDivElement);
 
@@ -118,14 +120,28 @@ function renderCard(data: Movie): HTMLElement {
   $cardImage.setAttribute('class', 'card-img');
   $cardImage.setAttribute(
     'src',
-    'http://image.tmdb.org/t/p/w500/' + data.poster_path,
+    'http://image.tmdb.org/t/p/w500/' + movieData.poster_path,
   );
-  $cardImage.setAttribute('alt', data.title + ' Movie Poster');
+  $cardImage.setAttribute('alt', movieData.title + ' Movie Poster');
 
   $cardDivElement.appendChild($cardImage);
 
   const $favoriteIcon = document.createElement('i');
+  $favoriteIcon.setAttribute('data-id', movieData.id.toString());
+
+  const iconId = $favoriteIcon.getAttribute('data-id');
+  if (!iconId) throw new Error('iconId not found.');
+
   $favoriteIcon.setAttribute('class', 'fa-regular fa-heart fa-2xl home-icon');
+
+  for (let i = 0; i < data.favorites.length; i++) {
+    if (data.favorites[i].id === +iconId) {
+      $favoriteIcon.setAttribute(
+        'class',
+        'fa-solid fa-heart fa-2xl home-icon',
+      );
+    }
+  }
 
   $cardDivElement.appendChild($favoriteIcon);
 
@@ -139,7 +155,7 @@ function renderCard(data: Movie): HTMLElement {
 
   const $cardTitle = document.createElement('h2');
   $cardTitle.setAttribute('class', 'card-title');
-  $cardTitle.textContent = data.title;
+  $cardTitle.textContent = movieData.title;
 
   const $cardContentRatingRow = document.createElement('div');
   $cardContentRatingRow.setAttribute('class', 'column-full row');
@@ -149,7 +165,7 @@ function renderCard(data: Movie): HTMLElement {
     'class',
     'circle row align-center justify-center card-rating',
   );
-  $spanElement.textContent = data.vote_average.toFixed(1);
+  $spanElement.textContent = movieData.vote_average.toFixed(1);
 
   $cardContentRowTitle.appendChild($cardTitle);
   $cardContentRatingRow.appendChild($spanElement);
@@ -162,7 +178,7 @@ function renderCard(data: Movie): HTMLElement {
 
   const $releaseDate = document.createElement('h3');
   $releaseDate.setAttribute('class', 'card-date');
-  $releaseDate.textContent = data.release_date.split('-')[0];
+  $releaseDate.textContent = movieData.release_date.split('-')[0];
 
   $cardContentRowTwo.appendChild($releaseDate);
 
@@ -224,7 +240,10 @@ function renderMovieDetails(data: Movie): void {
 $row.addEventListener('click', (event: Event): void => {
   const $eventTarget = event.target as HTMLElement;
 
-  if (!$eventTarget.matches('a')) return;
+  if (!$eventTarget.matches('a') && !$eventTarget.matches('i')) return;
+
+  const $allHomeIcons = document.querySelectorAll('.home-icon');
+  if (!$allHomeIcons) throw new Error('$allHomeIcons not found.');
 
   const $card = $eventTarget.closest('.card');
   if (!$card) throw new Error('$card not found');
@@ -232,13 +251,31 @@ $row.addEventListener('click', (event: Event): void => {
   const cardId = $card?.getAttribute('data-id');
   if (!cardId) throw new Error('cardId not found.');
 
-  for (let i = 0; i < moviesArr.length; i++) {
-    if (moviesArr[i].id === +cardId) {
-      viewSwap('learn-more');
-      renderMovieDetails(moviesArr[i]);
+  if ($eventTarget.matches('a')) {
+    for (let i = 0; i < moviesArr.length; i++) {
+      if (moviesArr[i].id === +cardId) {
+        viewSwap('learn-more');
+        renderMovieDetails(moviesArr[i]);
+      }
     }
-  }
-});
+  } else if ($eventTarget.matches('i')) {
+    $allHomeIcons.forEach((icon) => {
+      const $iconId = icon.getAttribute('data-id');
+      if (!$iconId) throw new Error('$iconId not found.');
+      if (
+        $iconId === cardId &&
+        !icon.classList.contains('fa-solid')
+      ) {
+        icon.className = 'fa-solid fa-heart fa-2xl home-icon';
+        for (let i = 0; i < moviesArr.length; i++) {
+          if (moviesArr[i].id === +$iconId && !data.favorites.includes(moviesArr[i])) {
+            data.favorites.push(moviesArr[i]);
+          }
+        }
+      }
+  })
+}
+})
 
 $sidebarToggle.addEventListener('click', (): void => {
   $sidebar.classList.toggle('hidden');

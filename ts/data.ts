@@ -8,7 +8,6 @@ interface Movie {
   vote_average: number;
   genre_ids: number[];
   id: number;
-  favorites: boolean;
 }
 
 interface Data {

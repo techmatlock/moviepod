@@ -102,6 +102,20 @@ a {
   margin-bottom: 2rem;
 }
 
+.details-icon {
+  position: absolute;
+  color: var(--clr-primary);
+  top: 250px;
+  right: 30px;
+}
+
+.home-icon {
+  position: absolute;
+  color: var(--clr-primary);
+  top: 200px;
+  right: 30px;
+}
+
 .circle {
   width: 2.5rem;
   height: 2.5rem;
@@ -150,20 +164,6 @@ a {
 
 .movie__ranking-wrapper {
   display: none;
-}
-
-.details-icon {
-  position: absolute;
-  color: var(--clr-primary);
-  top: 250px;
-  right: 30px;
-}
-
-.home-icon {
-  position: absolute;
-  color: var(--clr-primary);
-  top: 200px;
-  right: 30px;
 }
 
 /* Sidebar */
