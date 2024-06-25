@@ -29,6 +29,10 @@
   justify-content: flex-end;
 }
 
+.gap-10 {
+  gap: 10px;
+}
+
 @media screen and (width >= 1024px) {
   .column-fourth {
     flex-basis: 25%;

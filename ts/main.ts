@@ -14,8 +14,11 @@ const $votesNumber = document.querySelector(
   '.votes-number',
 ) as HTMLElement;
 const $genrePillsDiv = document.querySelector('.genre-pills') as HTMLElement;
-
-
+const $sidebarToggle = document.querySelector('#sidebar-toggle') as HTMLElement;
+const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
+const $sidebar = document.querySelector('.sidebar') as HTMLElement;
+const $main = document.querySelector('main') as HTMLElement;
+const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -28,6 +31,11 @@ if (!$movieRankingWrapper) throw new Error('$movieRankingWrapper not found.');
 if (!$movieRanking) throw new Error('$movieRanking not found.');
 if (!$votesNumber) throw new Error('$votesNumber not found.');
 if (!$genrePillsDiv) throw new Error('$genrePillsDiv not found.');
+if (!$sidebarToggle) throw new Error('$sidebarToggle not found.');
+if (!$mainToggle) throw new Error('$mainToggle not found.');
+if (!$sidebar) throw new Error('$sidebar not found.');
+if (!$main) throw new Error('$main not found.');
+if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -223,6 +231,29 @@ $row.addEventListener('click', (event: Event): void => {
       renderMovieDetails(moviesArr[i]);
     }
   }
+})
+
+$sidebarToggle.addEventListener('click', (): void => {
+  $sidebar.classList.toggle('hidden');
+  $main.classList.toggle('overlay');
+})
+
+$mainToggle.addEventListener('click', (): void => {
+  $sidebar.classList.toggle('hidden');
+  $main.classList.toggle('overlay');
+});
+
+$sidebarMenu.addEventListener('click', (event: Event): void => {
+  const $eventTarget = event.target as HTMLElement;
+
+  if (!$eventTarget.matches('a')) return;
+
+  const selectedView = $eventTarget.closest('a')?.getAttribute('id');
+  if (!selectedView) throw new Error('selectedView not found.');
+
+  $sidebar.classList.toggle('hidden');
+  $main.classList.toggle('overlay');
+  viewSwap(selectedView);
 })
 
 getMovies();

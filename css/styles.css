@@ -14,11 +14,14 @@ img {
 
 a {
   text-decoration: none;
-  color: var(--font-white);
 }
 
 .hidden {
   display: none;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Header */
@@ -27,7 +30,7 @@ a {
   background-color: var(--clr-primary);
 }
 
-.nav-menu {
+.toggle-btn {
   padding: 1rem 0;
   cursor: pointer;
 }
@@ -78,6 +81,10 @@ a {
   background-color: var(--clr-secondary);
   color: var(--font-white);
   cursor: pointer;
+}
+
+.card-btn > a {
+  color: var(--font-white);
 }
 
 .card-btn:hover {
@@ -141,6 +148,50 @@ a {
 
 .movie__ranking-wrapper {
   display: none;
+}
+
+/* Sidebar */
+
+.sidebar {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  z-index: 1;
+  transition: all ease-in-out 3s;
+  background-color: #fff;
+}
+
+.sidebar-header {
+  background-color: var(--clr-primary);
+}
+
+.sidebar-header img {
+  padding: 0 1rem;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.sidebar-link a {
+  color: #000;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.sidebar-link {
+  font-size: 20px;
+  font-family: var(--ff-sans);
+}
+
+.sidebar-link:hover {
+  background-color: var(--clr-hover);
+}
+
+.sidebar-icon {
+  width: 30px;
 }
 
 @media screen and (width >= 768px) {

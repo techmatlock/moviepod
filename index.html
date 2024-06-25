@@ -16,10 +16,35 @@
       rel="stylesheet" />
   </head>
   <body>
+    <div class="sidebar hidden">
+      <div class="sidebar-header">
+        <div class="row">
+          <div id="sidebar-toggle" class="toggle-btn">
+            <img src="images/bars-solid.svg" alt="a menu button" />
+          </div>
+        </div>
+      </div>
+      <div id="sidebar-menu">
+        <ul class="sidebar-links">
+          <li class="sidebar-link">
+            <a class="row align-center gap-10" id="home" href="#">
+              <img class="sidebar-icon" src="images/house-solid.svg" alt="a home link" />
+              Home
+            </a>
+          </li>
+          <li class="sidebar-link">
+            <a class="row align-center gap-10" id="favorites" href="#">
+              <img class="sidebar-icon" src="images/heart-solid.svg" alt="a favorites link" />
+              Favorites
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
     <header class="header-bg">
       <div class="container">
         <div class="row flex-start">
-          <div class="nav-menu">
+          <div id="main-toggle" class="toggle-btn">
             <img src="images/bars-solid.svg" alt="a menu button" />
           </div>
         </div>
@@ -35,7 +60,13 @@
           </div>
           <div class="row movies-row flex-wrap"></div>
         </div>
-        <div data-view="favorites" class="hidden"></div>
+        <div data-view="favorites" class="hidden">
+          <div class="row">
+            <div class="column-full">
+              <h1 class="page-title">Favorites</h1>
+            </div>
+          </div>
+        </div>
       </div>
       <div data-view="learn-more" class="hidden">
         <div class="movie-details">
