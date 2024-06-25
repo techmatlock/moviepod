@@ -44,6 +44,7 @@ a {
 /* Card */
 
 .card {
+  position: relative;
   margin-top: 1rem;
   box-shadow: 5px 2px 10px rgba(211, 211, 211, 0.8);
   border-bottom-right-radius: 2px;
@@ -111,6 +112,7 @@ a {
 /* Learn More */
 
 .movie__image-wrapper {
+  position: relative;
   margin: 1rem 1rem 0;
 }
 
@@ -148,6 +150,20 @@ a {
 
 .movie__ranking-wrapper {
   display: none;
+}
+
+.details-icon {
+  position: absolute;
+  color: var(--clr-primary);
+  top: 250px;
+  right: 30px;
+}
+
+.home-icon {
+  position: absolute;
+  color: var(--clr-primary);
+  top: 200px;
+  right: 30px;
 }
 
 /* Sidebar */
@@ -222,6 +238,13 @@ a {
 
   .learn__more-share {
     margin: 2rem;
+  }
+
+  .details-icon {
+    position: absolute;
+    color: var(--clr-primary);
+    top: 350px;
+    right: 220px;
   }
 
   .movie__ranking-wrapper {

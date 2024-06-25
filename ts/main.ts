@@ -6,13 +6,11 @@ const $movieImg = document.querySelector('.learn__more-img') as HTMLElement;
 const $movieTitle = document.querySelector('.movie-title') as HTMLElement;
 const $releaseTitle = document.querySelector('.release-title') as HTMLElement;
 const $summary = document.querySelector('.summary') as HTMLElement;
-const $movieRankingWrapper = document.querySelector('.movie__ranking-wrapper') as HTMLElement;
-const $movieRanking = document.querySelector(
-  '.movie-ranking',
+const $movieRankingWrapper = document.querySelector(
+  '.movie__ranking-wrapper',
 ) as HTMLElement;
-const $votesNumber = document.querySelector(
-  '.votes-number',
-) as HTMLElement;
+const $movieRanking = document.querySelector('.movie-ranking') as HTMLElement;
+const $votesNumber = document.querySelector('.votes-number') as HTMLElement;
 const $genrePillsDiv = document.querySelector('.genre-pills') as HTMLElement;
 const $sidebarToggle = document.querySelector('#sidebar-toggle') as HTMLElement;
 const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
@@ -40,25 +38,25 @@ if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 let moviesArr: Movie[] = [];
 
 const genreMap: Record<number, string> = {
-    28: 'Action',
-    12: 'Adventure',
-    16: 'Animation',
-    35: 'Comedy',
-    80: 'Crime',
-    99: 'Documentary',
-    18: 'Drama',
-    10751: 'Family',
-    14: 'Fantasy',
-    36: 'History',
-    27: 'Horror',
-    10402: 'Music',
-    9648: 'Mystery',
-    10749: 'Romance',
-    878: 'Science Fiction',
-    10770: 'TV Movie',
-    53: 'Thriller',
-    10752: 'War',
-    37: 'Western',
+  28: 'Action',
+  12: 'Adventure',
+  16: 'Animation',
+  35: 'Comedy',
+  80: 'Crime',
+  99: 'Documentary',
+  18: 'Drama',
+  10751: 'Family',
+  14: 'Fantasy',
+  36: 'History',
+  27: 'Horror',
+  10402: 'Music',
+  9648: 'Mystery',
+  10749: 'Romance',
+  878: 'Science Fiction',
+  10770: 'TV Movie',
+  53: 'Thriller',
+  10752: 'War',
+  37: 'Western',
 };
 
 async function getMovies(): Promise<void> {
@@ -103,7 +101,7 @@ function viewSwap(view: string): void {
     } else {
       element.classList.add('hidden');
     }
-  })
+  });
 }
 
 function renderCard(data: Movie): HTMLElement {
@@ -125,6 +123,11 @@ function renderCard(data: Movie): HTMLElement {
   $cardImage.setAttribute('alt', data.title + ' Movie Poster');
 
   $cardDivElement.appendChild($cardImage);
+
+  const $favoriteIcon = document.createElement('i');
+  $favoriteIcon.setAttribute('class', 'fa-regular fa-heart fa-2xl home-icon');
+
+  $cardDivElement.appendChild($favoriteIcon);
 
   const $cardContent = document.createElement('div');
   $cardContent.setAttribute('class', 'card-content');
@@ -209,7 +212,10 @@ function renderMovieDetails(data: Movie): void {
     const $genrePill = document.createElement('h4');
     const genreId = data.genre_ids[i];
     const genreName: string = genreMap[genreId];
-    $genrePill.setAttribute('class', 'pill__line-sm row justify-center align-center pill-genre');
+    $genrePill.setAttribute(
+      'class',
+      'pill__line-sm row justify-center align-center pill-genre',
+    );
     $genrePill.textContent = genreName;
     $genrePillsDiv.appendChild($genrePill);
   }
@@ -224,7 +230,7 @@ $row.addEventListener('click', (event: Event): void => {
   if (!$card) throw new Error('$card not found');
 
   const cardId = $card?.getAttribute('data-id');
-  if (!cardId) throw new Error('cardId not found.')
+  if (!cardId) throw new Error('cardId not found.');
 
   for (let i = 0; i < moviesArr.length; i++) {
     if (moviesArr[i].id === +cardId) {
@@ -232,12 +238,12 @@ $row.addEventListener('click', (event: Event): void => {
       renderMovieDetails(moviesArr[i]);
     }
   }
-})
+});
 
 $sidebarToggle.addEventListener('click', (): void => {
   $sidebar.classList.toggle('hidden');
   $main.classList.toggle('overlay');
-})
+});
 
 $mainToggle.addEventListener('click', (): void => {
   $sidebar.classList.toggle('hidden');
@@ -255,6 +261,6 @@ $sidebarMenu.addEventListener('click', (event: Event): void => {
   $sidebar.classList.toggle('hidden');
   $main.classList.toggle('overlay');
   viewSwap(selectedView);
-})
+});
 
 getMovies();
