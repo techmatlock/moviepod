@@ -16,7 +16,7 @@ const $mainToggle = document.querySelector('#main-toggle');
 const $sidebar = document.querySelector('.sidebar');
 const $main = document.querySelector('main');
 const $sidebarMenu = document.querySelector('#sidebar-menu');
-const $detailsFavoriteIcon = document.querySelector('.details-icon');
+const $favoritesRow = document.querySelector('.favorites-row');
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
 if (!$dataViewElements) throw new Error('$dataViewElements not found.');
@@ -33,7 +33,7 @@ if (!$mainToggle) throw new Error('$mainToggle not found.');
 if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
-if (!$detailsFavoriteIcon) throw new Error('$detailsFavoriteIcon not found.');
+if (!$favoritesRow) throw new Error('$favoritesView not found.');
 let moviesArr = [];
 const genreMap = {
   28: 'Action',
@@ -230,6 +230,12 @@ $sidebarMenu.addEventListener('click', (event) => {
   if (!selectedView) throw new Error('selectedView not found.');
   $sidebar.classList.toggle('hidden');
   $main.classList.toggle('overlay');
+  if (selectedView === 'favorites') {
+    for (let i = 0; i < data.favorites.length; i++) {
+      const $movieCard = renderCard(data.favorites[i]);
+      $favoritesRow.appendChild($movieCard);
+    }
+  }
   viewSwap(selectedView);
 });
 getMovies();
