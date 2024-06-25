@@ -8,17 +8,20 @@ interface Movie {
   vote_average: number;
   genre_ids: number[];
   id: number;
+  favorites: boolean;
 }
 
 interface Data {
   view: string;
   entries: Movie[];
+  favorites: Movie[];
   nextEntryId: number;
 }
 
 let data: Data = {
   view: 'home',
   entries: [],
+  favorites: [],
   nextEntryId: 1
 };
 

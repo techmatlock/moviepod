@@ -2,6 +2,7 @@
 let data = {
     view: 'home',
     entries: [],
+    favorites: [],
     nextEntryId: 1
 };
 const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
