@@ -84,6 +84,7 @@ async function getMovies() {
             throw new Error('Failed to get a response.');
         const responseData = await response.json();
         const resultsArr = responseData.results;
+        data.entries = resultsArr;
         // Add to global variable
         moviesArr = resultsArr;
         // Render each movie to DOM
