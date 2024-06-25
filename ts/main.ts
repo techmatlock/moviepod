@@ -17,7 +17,9 @@ const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
 const $sidebar = document.querySelector('.sidebar') as HTMLElement;
 const $main = document.querySelector('main') as HTMLElement;
 const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
-const $detailsFavoriteIcon = document.querySelector('.details-icon') as HTMLElement;
+const $detailsFavoriteIcon = document.querySelector(
+  '.details-icon',
+) as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -136,10 +138,7 @@ function renderCard(movieData: Movie): HTMLElement {
 
   for (let i = 0; i < data.favorites.length; i++) {
     if (data.favorites[i].id === +iconId) {
-      $favoriteIcon.setAttribute(
-        'class',
-        'fa-solid fa-heart fa-2xl home-icon',
-      );
+      $favoriteIcon.setAttribute('class', 'fa-solid fa-heart fa-2xl home-icon');
     }
   }
 
@@ -262,20 +261,17 @@ $row.addEventListener('click', (event: Event): void => {
     $allHomeIcons.forEach((icon) => {
       const $iconId = icon.getAttribute('data-id');
       if (!$iconId) throw new Error('$iconId not found.');
-      if (
-        $iconId === cardId &&
-        !icon.classList.contains('fa-solid')
-      ) {
+      if ($iconId === cardId && !icon.classList.contains('fa-solid')) {
         icon.className = 'fa-solid fa-heart fa-2xl home-icon';
         for (let i = 0; i < moviesArr.length; i++) {
-          if (moviesArr[i].id === +$iconId && !data.favorites.includes(moviesArr[i])) {
+          if (moviesArr[i].id === +$iconId) {
             data.favorites.push(moviesArr[i]);
           }
         }
       }
-  })
-}
-})
+    });
+  }
+});
 
 $sidebarToggle.addEventListener('click', (): void => {
   $sidebar.classList.toggle('hidden');
