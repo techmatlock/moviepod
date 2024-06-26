@@ -330,12 +330,12 @@ $favoritesRow.addEventListener('click', (event: Event): void => {
 });
 
 $sidebarToggle.addEventListener('click', (): void => {
-  $sidebar.classList.toggle('hidden');
+  $sidebar.classList.toggle('is-open');
   $main.classList.toggle('overlay');
 });
 
 $mainToggle.addEventListener('click', (): void => {
-  $sidebar.classList.toggle('hidden');
+  $sidebar.classList.toggle('is-open');
   $main.classList.toggle('overlay');
 });
 
@@ -347,7 +347,7 @@ $sidebarMenu.addEventListener('click', (event: Event): void => {
   const selectedView = $eventTarget.closest('a')?.getAttribute('id');
   if (!selectedView) throw new Error('selectedView not found.');
 
-  $sidebar.classList.toggle('hidden');
+  $sidebar.classList.toggle('is-open');
   $main.classList.toggle('overlay');
   if (selectedView === 'favorites') {
     for (let i = 0; i < data.favorites.length; i++) {

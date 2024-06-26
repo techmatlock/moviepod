@@ -264,11 +264,11 @@ $favoritesRow.addEventListener('click', (event) => {
   }
 });
 $sidebarToggle.addEventListener('click', () => {
-  $sidebar.classList.toggle('hidden');
+  $sidebar.classList.toggle('is-open');
   $main.classList.toggle('overlay');
 });
 $mainToggle.addEventListener('click', () => {
-  $sidebar.classList.toggle('hidden');
+  $sidebar.classList.toggle('is-open');
   $main.classList.toggle('overlay');
 });
 $sidebarMenu.addEventListener('click', (event) => {
@@ -276,7 +276,7 @@ $sidebarMenu.addEventListener('click', (event) => {
   if (!$eventTarget.matches('a')) return;
   const selectedView = $eventTarget.closest('a')?.getAttribute('id');
   if (!selectedView) throw new Error('selectedView not found.');
-  $sidebar.classList.toggle('hidden');
+  $sidebar.classList.toggle('is-open');
   $main.classList.toggle('overlay');
   if (selectedView === 'favorites') {
     for (let i = 0; i < data.favorites.length; i++) {
