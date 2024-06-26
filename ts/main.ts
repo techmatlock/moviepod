@@ -17,7 +17,8 @@ const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
 const $sidebar = document.querySelector('.sidebar') as HTMLElement;
 const $main = document.querySelector('main') as HTMLElement;
 const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
-const $favoritesRow = document.querySelector('.favorites-row');
+const $favoritesRow = document.querySelector('.favorites-row') as HTMLElement;
+const $detailsIcon = document.querySelector('.details-icon') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -36,6 +37,7 @@ if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 if (!$favoritesRow) throw new Error('$favoritesView not found.');
+if (!$detailsIcon) throw new Error('$detailsIcon not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -200,30 +202,43 @@ function renderCard(movieData: Movie): HTMLElement {
   return $outerColumn;
 }
 
-function renderMovieDetails(data: Movie): void {
+function renderMovieDetails(movieData: Movie): void {
   $movieImg.setAttribute(
     'src',
-    'http://image.tmdb.org/t/p/w500/' + data.poster_path,
+    'http://image.tmdb.org/t/p/w500/' + movieData.poster_path,
   );
-  $movieImg.setAttribute('alt', data.title + ' Movie Poster');
+  $movieImg.setAttribute('alt', movieData.title + ' Movie Poster');
 
-  $movieTitle.textContent = data.title;
+  $detailsIcon.setAttribute('data-id', movieData.id.toString());
 
-  $releaseTitle.textContent = data.release_date.split('-')[0];
+  const iconId = $detailsIcon.getAttribute('data-id');
+  if (!iconId) throw new Error('iconId not found.');
 
-  $summary.textContent = data.overview;
+  $detailsIcon.className = 'fa-regular fa-heart fa-2xl details-icon';
+
+  for (let i = 0; i < data.favorites.length; i++) {
+    if (data.favorites[i].id === +iconId) {
+      $detailsIcon.className = 'fa-solid fa-heart fa-2xl details-icon';
+    }
+  }
+
+  $movieTitle.textContent = movieData.title;
+
+  $releaseTitle.textContent = movieData.release_date.split('-')[0];
+
+  $summary.textContent = movieData.overview;
 
   $movieRankingWrapper.setAttribute('class', 'movie__ranking-wrapper row');
 
-  $movieRanking.textContent = data.vote_average.toFixed(1).toString();
+  $movieRanking.textContent = movieData.vote_average.toFixed(1).toString();
 
   $movieDetails.appendChild($movieRankingWrapper);
 
-  $votesNumber.textContent = data.vote_count.toLocaleString();
+  $votesNumber.textContent = movieData.vote_count.toLocaleString();
 
-  for (let i = 0; i < data.genre_ids.length; i++) {
+  for (let i = 0; i < movieData.genre_ids.length; i++) {
     const $genrePill = document.createElement('h4');
-    const genreId = data.genre_ids[i];
+    const genreId = movieData.genre_ids[i];
     const genreName: string = genreMap[genreId];
     $genrePill.setAttribute(
       'class',
@@ -298,6 +313,14 @@ $sidebarMenu.addEventListener('click', (event: Event): void => {
     }
   }
   viewSwap(selectedView);
+});
+
+$detailsIcon.addEventListener('click', (): void => {
+  if ($detailsIcon.classList.contains('fa-solid')) {
+    $detailsIcon.className = 'fa-regular fa-heart fa-2xl details-icon';
+  } else if ($detailsIcon.classList.contains('fa-regular')) {
+    $detailsIcon.className = 'fa-solid fa-heart fa-2xl details-icon';
+  }
 });
 
 getMovies();
