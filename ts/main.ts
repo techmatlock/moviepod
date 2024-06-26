@@ -363,6 +363,15 @@ $detailsIcon.addEventListener('click', (): void => {
     $detailsIcon.className = 'fa-regular fa-heart fa-2xl details-icon';
   } else if ($detailsIcon.classList.contains('fa-regular')) {
     $detailsIcon.className = 'fa-solid fa-heart fa-2xl details-icon';
+
+    const iconId = $detailsIcon.getAttribute('data-id');
+    if (!iconId) throw new Error('iconId not found.');
+
+    for (let i = 0; i < moviesArr.length; i++) {
+      if (moviesArr[i].id === +iconId) {
+        data.favorites.push(moviesArr[i]);
+      }
+    }
   }
 });
 
