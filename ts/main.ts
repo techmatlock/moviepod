@@ -307,7 +307,6 @@ $favoritesRow.addEventListener('click', (event: Event): void => {
     for (let i = 0; i < moviesArr.length; i++) {
       if (moviesArr[i].id === +cardId) {
         viewSwap('learn-more');
-        console.log('moviesArr[i]', moviesArr[i]);
         renderMovieDetails(moviesArr[i]);
       }
     }
