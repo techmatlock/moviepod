@@ -3,7 +3,6 @@ let data = {
     view: 'home',
     entries: [],
     favorites: [],
-    nextEntryId: 1
 };
 const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
 const bar = 'MTEyZWEwOTg2N2Q4MmJjMzNmMTc0YzZjNjkyMSIsInN1YiI6IjY1YTAzN2I4NzI2ZmI';

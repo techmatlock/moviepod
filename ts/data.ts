@@ -14,14 +14,12 @@ interface Data {
   view: string;
   entries: Movie[];
   favorites: Movie[];
-  nextEntryId: number;
 }
 
 let data: Data = {
   view: 'home',
   entries: [],
   favorites: [],
-  nextEntryId: 1
 };
 
 const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
