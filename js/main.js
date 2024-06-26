@@ -12,8 +12,8 @@ const $movieRankingWrapper = document.querySelector('.movie__ranking-wrapper');
 const $movieRanking = document.querySelector('.movie-ranking');
 const $votesNumber = document.querySelector('.votes-number');
 const $genrePillsDiv = document.querySelector('.genre-pills');
-const $sidebarToggle = document.querySelector('#sidebar-toggle');
-const $mainToggle = document.querySelector('#main-toggle');
+const $exitToggle = document.querySelector('#exit-toggle');
+const $openToggle = document.querySelector('#open-toggle');
 const $sidebar = document.querySelector('.sidebar');
 const $main = document.querySelector('main');
 const $sidebarMenu = document.querySelector('#sidebar-menu');
@@ -30,8 +30,8 @@ if (!$movieRankingWrapper) throw new Error('$movieRankingWrapper not found.');
 if (!$movieRanking) throw new Error('$movieRanking not found.');
 if (!$votesNumber) throw new Error('$votesNumber not found.');
 if (!$genrePillsDiv) throw new Error('$genrePillsDiv not found.');
-if (!$sidebarToggle) throw new Error('$sidebarToggle not found.');
-if (!$mainToggle) throw new Error('$mainToggle not found.');
+if (!$exitToggle) throw new Error('$exitToggle not found.');
+if (!$openToggle) throw new Error('$openToggle not found.');
 if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
@@ -263,13 +263,13 @@ $favoritesRow.addEventListener('click', (event) => {
     });
   }
 });
-$sidebarToggle.addEventListener('click', () => {
+$exitToggle.addEventListener('click', () => {
   $sidebar.classList.toggle('is-open');
-  $main.classList.toggle('overlay');
+  $main.classList.toggle('disable-elements');
 });
-$mainToggle.addEventListener('click', () => {
+$openToggle.addEventListener('click', () => {
   $sidebar.classList.toggle('is-open');
-  $main.classList.toggle('overlay');
+  $main.classList.toggle('disable-elements');
 });
 $sidebarMenu.addEventListener('click', (event) => {
   const $eventTarget = event.target;
@@ -277,7 +277,7 @@ $sidebarMenu.addEventListener('click', (event) => {
   const selectedView = $eventTarget.closest('a')?.getAttribute('id');
   if (!selectedView) throw new Error('selectedView not found.');
   $sidebar.classList.toggle('is-open');
-  $main.classList.toggle('overlay');
+  $main.classList.toggle('disable-elements');
   if (selectedView === 'favorites') {
     for (let i = 0; i < data.favorites.length; i++) {
       const $movieCard = renderCard(data.favorites[i]);
