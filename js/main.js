@@ -18,6 +18,7 @@ const $sidebar = document.querySelector('.sidebar');
 const $main = document.querySelector('main');
 const $sidebarMenu = document.querySelector('#sidebar-menu');
 const $detailsIcon = document.querySelector('.details-icon');
+const $noFavorites = document.querySelector('.no-favorites');
 if (!$row) throw new Error('$row not found.');
 if (!$favoritesRow) throw new Error('$favoritesView not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -36,6 +37,7 @@ if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 if (!$detailsIcon) throw new Error('$detailsIcon not found.');
+if (!$noFavorites) throw new Error('$detailsIcon not found.');
 let moviesArr = [];
 const genreMap = {
   28: 'Action',
@@ -268,14 +270,16 @@ $favoritesRow.addEventListener('click', (event) => {
             data.favorites.splice(i, 1);
           }
         }
+        if (data.favorites.length === 0) {
+          $noFavorites.classList.remove('hidden');
+        }
         const $allCardElements = document.querySelectorAll('.card');
         if (!$allCardElements) throw new Error('$allCardElements not found.');
         $allCardElements.forEach((card) => {
           if (card.getAttribute('data-id') === $iconId) {
             const $column = card.closest('.column-fourth');
             if (!$column) throw new Error('$column not found.');
-            $column?.remove();
-            card.remove();
+            $column.remove();
           }
         });
       }
@@ -302,6 +306,9 @@ $sidebarMenu.addEventListener('click', (event) => {
       const $movieCard = renderCard(data.favorites[i]);
       $favoritesRow.appendChild($movieCard);
     }
+  }
+  if (data.favorites.length === 0) {
+    $noFavorites.classList.toggle('hidden');
   }
   viewSwap(selectedView);
 });

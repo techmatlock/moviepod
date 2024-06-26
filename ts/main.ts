@@ -19,6 +19,7 @@ const $sidebar = document.querySelector('.sidebar') as HTMLElement;
 const $main = document.querySelector('main') as HTMLElement;
 const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
 const $detailsIcon = document.querySelector('.details-icon') as HTMLElement;
+const $noFavorites = document.querySelector('.no-favorites') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$favoritesRow) throw new Error('$favoritesView not found.');
@@ -38,6 +39,7 @@ if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 if (!$detailsIcon) throw new Error('$detailsIcon not found.');
+if (!$noFavorites) throw new Error('$detailsIcon not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -336,6 +338,10 @@ $favoritesRow.addEventListener('click', (event: Event): void => {
           }
         }
 
+        if (data.favorites.length === 0) {
+          $noFavorites.classList.remove('hidden');
+        }
+
         const $allCardElements = document.querySelectorAll('.card');
         if (!$allCardElements) throw new Error('$allCardElements not found.');
 
@@ -343,8 +349,7 @@ $favoritesRow.addEventListener('click', (event: Event): void => {
           if (card.getAttribute('data-id') === $iconId) {
             const $column = card.closest('.column-fourth');
             if (!$column) throw new Error('$column not found.');
-            $column?.remove();
-            card.remove();
+            $column.remove();
           }
         });
       }
@@ -377,6 +382,9 @@ $sidebarMenu.addEventListener('click', (event: Event): void => {
       const $movieCard = renderCard(data.favorites[i]);
       $favoritesRow.appendChild($movieCard);
     }
+  }
+  if (data.favorites.length === 0) {
+    $noFavorites.classList.toggle('hidden');
   }
   viewSwap(selectedView);
 });
