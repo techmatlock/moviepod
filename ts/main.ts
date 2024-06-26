@@ -281,6 +281,8 @@ $row.addEventListener('click', (event: Event): void => {
             data.favorites.push(moviesArr[i]);
           }
         }
+      } else if ($iconId === cardId && icon.classList.contains('fa-solid')) {
+        icon.className = 'fa-regular fa-heart fa-2xl home-icon';
       }
     });
   }
