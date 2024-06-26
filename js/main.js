@@ -225,6 +225,11 @@ $row.addEventListener('click', (event) => {
         }
       } else if ($iconId === cardId && icon.classList.contains('fa-solid')) {
         icon.className = 'fa-regular fa-heart fa-2xl home-icon';
+        for (let i = 0; i < data.favorites.length; i++) {
+          if (data.favorites[i].id === +$iconId) {
+            data.favorites.splice(i, 1);
+          }
+        }
       }
     });
   }
@@ -258,6 +263,21 @@ $favoritesRow.addEventListener('click', (event) => {
         }
       } else if ($iconId === cardId && icon.classList.contains('fa-solid')) {
         icon.className = 'fa-regular fa-heart fa-2xl home-icon';
+        for (let i = 0; i < data.favorites.length; i++) {
+          if (data.favorites[i].id === +$iconId) {
+            data.favorites.splice(i, 1);
+          }
+        }
+        const $allCardElements = document.querySelectorAll('.card');
+        if (!$allCardElements) throw new Error('$allCardElements not found.');
+        $allCardElements.forEach((card) => {
+          if (card.getAttribute('data-id') === $iconId) {
+            const $column = card.closest('.column-fourth');
+            if (!$column) throw new Error('$column not found.');
+            $column?.remove();
+            card.remove();
+          }
+        });
       }
     });
   }
@@ -288,6 +308,13 @@ $sidebarMenu.addEventListener('click', (event) => {
 $detailsIcon.addEventListener('click', () => {
   if ($detailsIcon.classList.contains('fa-solid')) {
     $detailsIcon.className = 'fa-regular fa-heart fa-2xl details-icon';
+    const iconId = $detailsIcon.getAttribute('data-id');
+    if (!iconId) throw new Error('iconId not found.');
+    for (let i = 0; i < data.favorites.length; i++) {
+      if (data.favorites[i].id === +iconId) {
+        data.favorites.splice(i, 1);
+      }
+    }
   } else if ($detailsIcon.classList.contains('fa-regular')) {
     $detailsIcon.className = 'fa-solid fa-heart fa-2xl details-icon';
     const iconId = $detailsIcon.getAttribute('data-id');
