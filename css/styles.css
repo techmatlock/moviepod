@@ -219,6 +219,12 @@ a {
   width: 30px;
 }
 
+/* Favorites */
+
+.no-favorites {
+  font-family: var(--ff-sans);
+}
+
 @media screen and (width >= 768px) {
   .circle {
     margin-top: 1rem;
