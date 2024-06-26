@@ -1,5 +1,6 @@
 /* global data */
 const $row = document.querySelector('.movies-row') as HTMLElement;
+const $favoritesRow = document.querySelector('.favorites-row') as HTMLElement;
 const $movieDetails = document.querySelector('.movie-details') as HTMLElement;
 const $dataViewElements = document.querySelectorAll('[data-view]');
 const $movieImg = document.querySelector('.learn__more-img') as HTMLElement;
@@ -17,10 +18,10 @@ const $mainToggle = document.querySelector('#main-toggle') as HTMLElement;
 const $sidebar = document.querySelector('.sidebar') as HTMLElement;
 const $main = document.querySelector('main') as HTMLElement;
 const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
-const $favoritesRow = document.querySelector('.favorites-row') as HTMLElement;
 const $detailsIcon = document.querySelector('.details-icon') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
+if (!$favoritesRow) throw new Error('$favoritesView not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
 if (!$dataViewElements) throw new Error('$dataViewElements not found.');
 if (!$movieImg) throw new Error('$movieImg not found.');
@@ -36,7 +37,6 @@ if (!$mainToggle) throw new Error('$mainToggle not found.');
 if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
-if (!$favoritesRow) throw new Error('$favoritesView not found.');
 if (!$detailsIcon) throw new Error('$detailsIcon not found.');
 
 let moviesArr: Movie[] = [];
@@ -98,6 +98,7 @@ async function getMovies(): Promise<void> {
 }
 
 function viewSwap(view: string): void {
+  data.view = view;
   $dataViewElements.forEach((element) => {
     const dataViewValue = element.getAttribute('data-view');
     if (view === dataViewValue) {
@@ -267,6 +268,46 @@ $row.addEventListener('click', (event: Event): void => {
     for (let i = 0; i < moviesArr.length; i++) {
       if (moviesArr[i].id === +cardId) {
         viewSwap('learn-more');
+        renderMovieDetails(moviesArr[i]);
+      }
+    }
+  } else if ($eventTarget.matches('i')) {
+    $allHomeIcons.forEach((icon) => {
+      const $iconId = icon.getAttribute('data-id');
+      if (!$iconId) throw new Error('$iconId not found.');
+      if ($iconId === cardId && !icon.classList.contains('fa-solid')) {
+        icon.className = 'fa-solid fa-heart fa-2xl home-icon';
+        for (let i = 0; i < moviesArr.length; i++) {
+          if (moviesArr[i].id === +$iconId) {
+            data.favorites.push(moviesArr[i]);
+          }
+        }
+      } else if ($iconId === cardId && icon.classList.contains('fa-solid')) {
+        icon.className = 'fa-regular fa-heart fa-2xl home-icon';
+      }
+    });
+  }
+});
+
+$favoritesRow.addEventListener('click', (event: Event): void => {
+  const $eventTarget = event.target as HTMLElement;
+
+  if (!$eventTarget.matches('a') && !$eventTarget.matches('i')) return;
+
+  const $allHomeIcons = document.querySelectorAll('.home-icon');
+  if (!$allHomeIcons) throw new Error('$allHomeIcons not found.');
+
+  const $card = $eventTarget.closest('.card');
+  if (!$card) throw new Error('$card not found');
+
+  const cardId = $card?.getAttribute('data-id');
+  if (!cardId) throw new Error('cardId not found.');
+
+  if ($eventTarget.matches('a')) {
+    for (let i = 0; i < moviesArr.length; i++) {
+      if (moviesArr[i].id === +cardId) {
+        viewSwap('learn-more');
+        console.log('moviesArr[i]', moviesArr[i]);
         renderMovieDetails(moviesArr[i]);
       }
     }
