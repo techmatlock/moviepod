@@ -33,6 +33,12 @@
   gap: 10px;
 }
 
+@media screen and (width >= 768px) {
+  .column-fourth {
+    flex-basis: 50%;
+  }
+}
+
 @media screen and (width >= 1024px) {
   .column-fourth {
     flex-basis: 25%;
