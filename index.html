@@ -16,10 +16,10 @@
       rel="stylesheet" />
   </head>
   <body>
-    <div class="sidebar hidden">
+    <div class="sidebar">
       <div class="sidebar-header">
         <div class="row">
-          <div id="sidebar-toggle" class="toggle-btn">
+          <div id="exit-toggle" class="toggle-btn">
             <img src="images/bars-solid.svg" alt="a menu button" />
           </div>
         </div>
@@ -28,13 +28,19 @@
         <ul class="sidebar-links">
           <li class="sidebar-link">
             <a class="row align-center gap-10" id="home" href="#">
-              <img class="sidebar-icon" src="images/house-solid.svg" alt="a home link" />
+              <img
+                class="sidebar-icon"
+                src="images/house-solid.svg"
+                alt="a home link" />
               Home
             </a>
           </li>
           <li class="sidebar-link">
             <a class="row align-center gap-10" id="favorites" href="#">
-              <img class="sidebar-icon" src="images/heart-solid.svg" alt="a favorites link" />
+              <img
+                class="sidebar-icon"
+                src="images/heart-solid.svg"
+                alt="a favorites link" />
               Favorites
             </a>
           </li>
@@ -44,7 +50,7 @@
     <header class="header-bg">
       <div class="container">
         <div class="row flex-start">
-          <div id="main-toggle" class="toggle-btn">
+          <div id="open-toggle" class="toggle-btn">
             <img src="images/bars-solid.svg" alt="a menu button" />
           </div>
         </div>
@@ -66,13 +72,15 @@
               <h1 class="page-title">Favorites</h1>
             </div>
           </div>
+          <div class="row favorites-row flex-wrap"></div>
         </div>
       </div>
       <div data-view="learn-more" class="hidden">
         <div class="movie-details">
           <div class="main-wrapper row flex-wrap">
             <div class="movie__image-wrapper column-half">
-              <img class="learn__more-img" src="" alt="">
+              <img class="learn__more-img" src="" alt="" />
+              <i data-id="" class="fa-regular fa-heart fa-2xl details-icon"></i>
             </div>
             <div class="movie-summary column-half">
               <div class="learn__more-title">
@@ -87,18 +95,17 @@
             </div>
           </div>
           <div class="movie-divider row justify-end">
-            <div class="divider">
-            </div>
+            <div class="divider"></div>
           </div>
           <div class="row learn__more-share">
             <span>
-              <img src="images/share-solid.svg" alt="a share icon">
+              <img src="images/share-solid.svg" alt="a share icon" />
             </span>
             <a href="#">
-              <img src="images/facebook.svg" alt="a facebook share link">
+              <img src="images/facebook.svg" alt="a facebook share link" />
             </a>
             <a href="#">
-              <img src="images/x-twitter.svg" alt="a x/Twitter link">
+              <img src="images/x-twitter.svg" alt="a x/Twitter link" />
             </a>
           </div>
           <div class="movie__ranking-wrapper row">
@@ -119,8 +126,7 @@
             <div class="column-full">
               <div class="movie-rating row justify-end align-center">
                 <h2 class="row justify-end">Genres</h2>
-                <div class="row genre-pills">
-                </div>
+                <div class="row genre-pills"></div>
               </div>
             </div>
           </div>
@@ -129,5 +135,8 @@
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
+    <script
+      src="https://kit.fontawesome.com/bcb8b063d0.js"
+      crossorigin="anonymous"></script>
   </body>
 </html>
