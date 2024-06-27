@@ -88,7 +88,7 @@ async function getMovies(): Promise<void> {
 
     const responseData = await response.json();
     const resultsArr = responseData.results as Movie[];
-    data.entries = resultsArr;
+    data.entries.push(...resultsArr);
 
     // Add to global variable
     moviesArr = resultsArr;
