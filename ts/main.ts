@@ -88,7 +88,6 @@ async function getMovies(): Promise<void> {
 
     const responseData = await response.json();
     const resultsArr = responseData.results as Movie[];
-    data.entries.push(...resultsArr);
 
     // Add to global variable
     moviesArr = resultsArr;
@@ -286,7 +285,7 @@ $row.addEventListener('click', (event: Event): void => {
       if ($iconId === cardId && !icon.classList.contains('fa-solid')) {
         icon.className = 'fa-solid fa-heart fa-2xl home-icon';
         for (let i = 0; i < moviesArr.length; i++) {
-          if (moviesArr[i].id === +$iconId) {
+          if (moviesArr[i].id === +$iconId && moviesArr[i] !== data.favorites[i]) {
             data.favorites.push(moviesArr[i]);
           }
         }
@@ -414,14 +413,12 @@ $detailsIcon.addEventListener('click', (): void => {
     if (!iconId) throw new Error('iconId not found.');
 
     for (let i = 0; i < moviesArr.length; i++) {
-      if (moviesArr[i].id === +iconId) {
+      if (moviesArr[i].id === +iconId && moviesArr[i] !== data.favorites[i]) {
         data.favorites.push(moviesArr[i]);
       }
     }
   }
 });
-
-getMovies();
 
 const options = {
   root: null,

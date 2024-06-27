@@ -12,13 +12,11 @@ interface Movie {
 
 interface Data {
   view: string;
-  entries: Movie[];
   favorites: Movie[];
 }
 
 let data: Data = {
   view: 'home',
-  entries: [],
   favorites: [],
 };
 

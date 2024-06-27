@@ -1,7 +1,6 @@
 "use strict";
 let data = {
     view: 'home',
-    entries: [],
     favorites: [],
 };
 const foo = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDZj';
