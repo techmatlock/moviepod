@@ -285,7 +285,10 @@ $row.addEventListener('click', (event: Event): void => {
       if ($iconId === cardId && !icon.classList.contains('fa-solid')) {
         icon.className = 'fa-solid fa-heart fa-2xl home-icon';
         for (let i = 0; i < moviesArr.length; i++) {
-          if (moviesArr[i].id === +$iconId && moviesArr[i] !== data.favorites[i]) {
+          if (
+            moviesArr[i].id === +$iconId &&
+            moviesArr[i] !== data.favorites[i]
+          ) {
             data.favorites.push(moviesArr[i]);
           }
         }
@@ -427,11 +430,10 @@ const options = {
 };
 
 const handleInfiniteScrolling = (entries: any): void => {
-  entries.forEach((entry: any) => {
-    if (entry.isIntersecting) {
-      getMovies();
-    }
-  });
+  const [entry] = entries;
+  if (entry.isIntersecting) {
+    getMovies();
+  }
 };
 
 const observer = new IntersectionObserver(handleInfiniteScrolling, options);
