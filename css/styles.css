@@ -334,7 +334,7 @@ a {
     position: absolute;
     color: var(--clr-primary);
     top: 350px;
-    right: 220px;
+    left: 375px;
   }
 
   .movie__ranking-wrapper {

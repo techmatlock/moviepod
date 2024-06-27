@@ -374,13 +374,12 @@ const options = {
     rootMargin: '0px',
     threshold: 0.9,
 };
-const handleInfiniteScrolling = ((entries) => {
-    const rect = $loadingDiv.getBoundingClientRect();
+const handleInfiniteScrolling = (entries) => {
     entries.forEach((entry) => {
-        if (entry.isIntersecting && rect.top >= 900) { // rect.top expression prevents callback from firing early
+        if (entry.isIntersecting) {
             getMovies();
         }
     });
-});
+};
 const observer = new IntersectionObserver(handleInfiniteScrolling, options);
 observer.observe($loadingDiv);

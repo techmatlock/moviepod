@@ -430,10 +430,8 @@ const options = {
 };
 
 const handleInfiniteScrolling = (entries: any): void => {
-  const rect = $loadingDiv.getBoundingClientRect();
   entries.forEach((entry: any) => {
-    if (entry.isIntersecting && rect.top >= 900) {
-      // rect.top expression prevents callback from firing early
+    if (entry.isIntersecting) {
       getMovies();
     }
   });
