@@ -304,6 +304,10 @@ a {
   .circle {
     margin-top: 1rem;
   }
+
+  .card-padding {
+    padding: 0.5rem;
+  }
 }
 
 @media screen and (width >= 1024px) {

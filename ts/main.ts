@@ -118,7 +118,7 @@ function viewSwap(view: string): void {
 
 function renderCard(movieData: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
-  $outerColumn.setAttribute('class', 'column-fourth');
+  $outerColumn.setAttribute('class', 'column-fourth card-padding');
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
