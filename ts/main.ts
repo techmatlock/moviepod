@@ -90,7 +90,13 @@ async function getMovies(): Promise<void> {
     const resultsArr = responseData.results as Movie[];
 
     // Add to global variable
-    moviesArr = resultsArr;
+    if (moviesArr.length === 0) {
+      moviesArr = resultsArr;
+    } else {
+      for (let i = 0; i < resultsArr.length; i++) {
+        moviesArr.push(resultsArr[i]);
+      }
+    }
 
     // Render each movie to DOM
     for (let i = 0; i < resultsArr.length; i++) {
