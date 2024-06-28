@@ -19,6 +19,7 @@ const $main = document.querySelector('main');
 const $sidebarMenu = document.querySelector('#sidebar-menu');
 const $detailsIcon = document.querySelector('.details-icon');
 const $noFavorites = document.querySelector('.no-favorites');
+const $loadingDiv = document.querySelector('.lds-ellipsis');
 if (!$row) throw new Error('$row not found.');
 if (!$favoritesRow) throw new Error('$favoritesView not found.');
 if (!$movieDetails) throw new Error('$movieDetails not found.');
@@ -37,7 +38,8 @@ if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 if (!$detailsIcon) throw new Error('$detailsIcon not found.');
-if (!$noFavorites) throw new Error('$detailsIcon not found.');
+if (!$noFavorites) throw new Error('$noFavorites not found.');
+if (!$loadingDiv) throw new Error('$loadingDiv not found.');
 let moviesArr = [];
 const genreMap = {
   28: 'Action',
@@ -60,6 +62,7 @@ const genreMap = {
   10752: 'War',
   37: 'Western',
 };
+let page = 1;
 async function getMovies() {
   try {
     const options = {
@@ -70,20 +73,26 @@ async function getMovies() {
       },
     };
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
       options,
     );
     if (!response.ok) throw new Error('Failed to get a response.');
     const responseData = await response.json();
     const resultsArr = responseData.results;
-    data.entries = resultsArr;
     // Add to global variable
-    moviesArr = resultsArr;
+    if (moviesArr.length === 0) {
+      moviesArr = resultsArr;
+    } else {
+      for (let i = 0; i < resultsArr.length; i++) {
+        moviesArr.push(resultsArr[i]);
+      }
+    }
     // Render each movie to DOM
     for (let i = 0; i < resultsArr.length; i++) {
       const movieElement = renderCard(resultsArr[i]);
       $row.appendChild(movieElement);
     }
+    page += 1; // increase page count for API endpoint to get next set of movies
   } catch (error) {
     console.log(`Error: ${error}`);
   }
@@ -101,7 +110,7 @@ function viewSwap(view) {
 }
 function renderCard(movieData) {
   const $outerColumn = document.createElement('div');
-  $outerColumn.setAttribute('class', 'column-fourth');
+  $outerColumn.setAttribute('class', 'column-fourth card-padding');
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
   $cardDivElement.setAttribute('data-id', movieData.id.toString());
@@ -221,7 +230,10 @@ $row.addEventListener('click', (event) => {
       if ($iconId === cardId && !icon.classList.contains('fa-solid')) {
         icon.className = 'fa-solid fa-heart fa-2xl home-icon';
         for (let i = 0; i < moviesArr.length; i++) {
-          if (moviesArr[i].id === +$iconId) {
+          if (
+            moviesArr[i].id === +$iconId &&
+            moviesArr[i] !== data.favorites[i]
+          ) {
             data.favorites.push(moviesArr[i]);
           }
         }
@@ -327,10 +339,22 @@ $detailsIcon.addEventListener('click', () => {
     const iconId = $detailsIcon.getAttribute('data-id');
     if (!iconId) throw new Error('iconId not found.');
     for (let i = 0; i < moviesArr.length; i++) {
-      if (moviesArr[i].id === +iconId) {
+      if (moviesArr[i].id === +iconId && moviesArr[i] !== data.favorites[i]) {
         data.favorites.push(moviesArr[i]);
       }
     }
   }
 });
-getMovies();
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.9,
+};
+const handleInfiniteScrolling = (entries) => {
+  const [entry] = entries;
+  if (entry.isIntersecting) {
+    getMovies();
+  }
+};
+const observer = new IntersectionObserver(handleInfiniteScrolling, options);
+observer.observe($loadingDiv);

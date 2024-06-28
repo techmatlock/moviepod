@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Top Rated Movies</title>
+    <title>MovieFuze</title>
     <link rel="icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/layout.css" />
@@ -49,9 +49,12 @@
     </div>
     <header class="header-bg">
       <div class="container">
-        <div class="row flex-start">
+        <div class="row flex-start align-center">
           <div id="open-toggle" class="toggle-btn">
             <img src="images/bars-solid.svg" alt="a menu button" />
+          </div>
+          <div class="site-title">
+            <h2>MovieFuze</h2>
           </div>
         </div>
       </div>
@@ -65,6 +68,14 @@
             </div>
           </div>
           <div class="row movies-row flex-wrap"></div>
+          <div class="row justify-center">
+            <div class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
         <div data-view="favorites" class="hidden">
           <div class="row">
@@ -76,59 +87,61 @@
             <h3 class="no-favorites hidden">No favorite movies yet.</h3>
           </div>
         </div>
-      </div>
-      <div data-view="learn-more" class="hidden">
-        <div class="movie-details">
-          <div class="main-wrapper row flex-wrap">
-            <div class="movie__image-wrapper column-half">
-              <img class="learn__more-img" src="" alt="" />
-              <i data-id="" class="fa-regular fa-heart fa-2xl details-icon"></i>
-            </div>
-            <div class="movie-summary column-half">
-              <div class="learn__more-title">
-                <h2 class="movie-title"></h2>
+        <div data-view="learn-more" class="hidden">
+          <div class="movie-details">
+            <div class="main-wrapper row flex-wrap">
+              <div class="movie__image-wrapper column-half">
+                <img class="learn__more-img" src="" alt="" />
+                <i
+                  data-id=""
+                  class="fa-regular fa-heart fa-2xl details-icon"></i>
               </div>
-              <div class="learn__more-release">
-                <h3 class="release-title"></h3>
-              </div>
-              <div class="learn__more-summary">
-                <p class="summary"></p>
-              </div>
-            </div>
-          </div>
-          <div class="movie-divider row justify-end">
-            <div class="divider"></div>
-          </div>
-          <div class="row learn__more-share">
-            <span>
-              <img src="images/share-solid.svg" alt="a share icon" />
-            </span>
-            <a href="#">
-              <img src="images/facebook.svg" alt="a facebook share link" />
-            </a>
-            <a href="#">
-              <img src="images/x-twitter.svg" alt="a x/Twitter link" />
-            </a>
-          </div>
-          <div class="movie__ranking-wrapper row">
-            <div class="column-full">
-              <div class="movie-rating row justify-end align-center">
-                <h2>Rating</h2>
-                <div class="pill__line-lg"></div>
-                <h2 class="movie-ranking movie__ranking-margin"></h2>
+              <div class="movie-summary column-half">
+                <div class="learn__more-title">
+                  <h2 class="movie-title"></h2>
+                </div>
+                <div class="learn__more-release">
+                  <h3 class="release-title"></h3>
+                </div>
+                <div class="learn__more-summary">
+                  <p class="summary"></p>
+                </div>
               </div>
             </div>
-            <div class="column-full">
-              <div class="movie-rating row justify-end align-center">
-                <h2>Votes</h2>
-                <div class="pill__line-lg"></div>
-                <h2 class="votes-number"></h2>
-              </div>
+            <div class="movie-divider row justify-end">
+              <div class="divider"></div>
             </div>
-            <div class="column-full">
-              <div class="movie-rating row justify-end align-center">
-                <h2 class="row justify-end">Genres</h2>
-                <div class="row genre-pills"></div>
+            <div class="row learn__more-share">
+              <span>
+                <img src="images/share-solid.svg" alt="a share icon" />
+              </span>
+              <a href="#">
+                <img src="images/facebook.svg" alt="a facebook share link" />
+              </a>
+              <a href="#">
+                <img src="images/x-twitter.svg" alt="a x/Twitter link" />
+              </a>
+            </div>
+            <div class="movie__ranking-wrapper row">
+              <div class="column-full">
+                <div class="movie-rating row justify-end align-center">
+                  <h2>Rating</h2>
+                  <div class="pill__line-lg"></div>
+                  <h2 class="movie-ranking movie__ranking-margin"></h2>
+                </div>
+              </div>
+              <div class="column-full">
+                <div class="movie-rating row justify-end align-center">
+                  <h2>Votes</h2>
+                  <div class="pill__line-lg"></div>
+                  <h2 class="votes-number"></h2>
+                </div>
+              </div>
+              <div class="column-full">
+                <div class="movie-rating row justify-end align-center">
+                  <h2 class="row justify-end">Genres</h2>
+                  <div class="row genre-pills"></div>
+                </div>
               </div>
             </div>
           </div>

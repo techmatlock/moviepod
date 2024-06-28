@@ -12,13 +12,11 @@ interface Movie {
 
 interface Data {
   view: string;
-  entries: Movie[];
   favorites: Movie[];
 }
 
 let data: Data = {
   view: 'home',
-  entries: [],
   favorites: [],
 };
 
@@ -28,7 +26,7 @@ const bar =
 const baz =
   'xMDEyYmY4YWY5ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CU2LQtrnjr4YUnU4bl7n9bFGYwY9XJOsSiyISbpsDcs';
 
-const previousJsonData = localStorage.getItem('json-key-localstorage');
+const previousJsonData = localStorage.getItem('movieData');
 
 if (previousJsonData !== null) {
   data = JSON.parse(previousJsonData);
@@ -36,5 +34,5 @@ if (previousJsonData !== null) {
 
 window.addEventListener('beforeunload', (): void => {
   const jsonData = JSON.stringify(data);
-  localStorage.setItem('json-key-localstorage', jsonData);
+  localStorage.setItem('movieData', jsonData);
 })

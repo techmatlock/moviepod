@@ -20,6 +20,7 @@ const $main = document.querySelector('main') as HTMLElement;
 const $sidebarMenu = document.querySelector('#sidebar-menu') as HTMLElement;
 const $detailsIcon = document.querySelector('.details-icon') as HTMLElement;
 const $noFavorites = document.querySelector('.no-favorites') as HTMLElement;
+const $loadingDiv = document.querySelector('.lds-ellipsis') as HTMLElement;
 
 if (!$row) throw new Error('$row not found.');
 if (!$favoritesRow) throw new Error('$favoritesView not found.');
@@ -39,7 +40,8 @@ if (!$sidebar) throw new Error('$sidebar not found.');
 if (!$main) throw new Error('$main not found.');
 if (!$sidebarMenu) throw new Error('$sidebarMenu not found.');
 if (!$detailsIcon) throw new Error('$detailsIcon not found.');
-if (!$noFavorites) throw new Error('$detailsIcon not found.');
+if (!$noFavorites) throw new Error('$noFavorites not found.');
+if (!$loadingDiv) throw new Error('$loadingDiv not found.');
 
 let moviesArr: Movie[] = [];
 
@@ -65,6 +67,8 @@ const genreMap: Record<number, string> = {
   37: 'Western',
 };
 
+let page = 1;
+
 async function getMovies(): Promise<void> {
   try {
     const options = {
@@ -76,7 +80,7 @@ async function getMovies(): Promise<void> {
     };
 
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
       options,
     );
 
@@ -84,16 +88,23 @@ async function getMovies(): Promise<void> {
 
     const responseData = await response.json();
     const resultsArr = responseData.results as Movie[];
-    data.entries = resultsArr;
 
     // Add to global variable
-    moviesArr = resultsArr;
+    if (moviesArr.length === 0) {
+      moviesArr = resultsArr;
+    } else {
+      for (let i = 0; i < resultsArr.length; i++) {
+        moviesArr.push(resultsArr[i]);
+      }
+    }
 
     // Render each movie to DOM
     for (let i = 0; i < resultsArr.length; i++) {
       const movieElement = renderCard(resultsArr[i]);
       $row.appendChild(movieElement);
     }
+
+    page += 1; // increase page count for API endpoint to get next set of movies
   } catch (error) {
     console.log(`Error: ${error}`);
   }
@@ -113,7 +124,7 @@ function viewSwap(view: string): void {
 
 function renderCard(movieData: Movie): HTMLElement {
   const $outerColumn = document.createElement('div');
-  $outerColumn.setAttribute('class', 'column-fourth');
+  $outerColumn.setAttribute('class', 'column-fourth card-padding');
 
   const $cardDivElement = document.createElement('div');
   $cardDivElement.setAttribute('class', 'card');
@@ -280,7 +291,10 @@ $row.addEventListener('click', (event: Event): void => {
       if ($iconId === cardId && !icon.classList.contains('fa-solid')) {
         icon.className = 'fa-solid fa-heart fa-2xl home-icon';
         for (let i = 0; i < moviesArr.length; i++) {
-          if (moviesArr[i].id === +$iconId) {
+          if (
+            moviesArr[i].id === +$iconId &&
+            moviesArr[i] !== data.favorites[i]
+          ) {
             data.favorites.push(moviesArr[i]);
           }
         }
@@ -408,11 +422,26 @@ $detailsIcon.addEventListener('click', (): void => {
     if (!iconId) throw new Error('iconId not found.');
 
     for (let i = 0; i < moviesArr.length; i++) {
-      if (moviesArr[i].id === +iconId) {
+      if (moviesArr[i].id === +iconId && moviesArr[i] !== data.favorites[i]) {
         data.favorites.push(moviesArr[i]);
       }
     }
   }
 });
 
-getMovies();
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.9,
+};
+
+const handleInfiniteScrolling = (entries: any): void => {
+  const [entry] = entries;
+  if (entry.isIntersecting) {
+    getMovies();
+  }
+};
+
+const observer = new IntersectionObserver(handleInfiniteScrolling, options);
+
+observer.observe($loadingDiv);
