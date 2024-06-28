@@ -36,6 +36,12 @@ a {
   cursor: pointer;
 }
 
+.site-title {
+  margin-left: 1rem;
+  font-family: var(--ff-sans);
+  color: var(--font-white);
+}
+
 /* Title */
 
 .page-title {
