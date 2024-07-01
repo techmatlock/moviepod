@@ -27,7 +27,7 @@ Try the application live at [https://techmatlock.github.io/front-end-project/](h
 
 ## Preview
 
-![MoviePod](https://drive.google.com/file/d/1Z23gNSeiZ5Ts3vrRjpudqHbtLKWTe8Pd/view?usp=sharing)
+![MoviePod](https://drive.google.com/uc?export=view&id=1Z23gNSeiZ5Ts3vrRjpudqHbtLKWTe8Pd)
 
 ## Challenges Encountered
 
