@@ -25,6 +25,8 @@ Try the application live at [https://techmatlock.github.io/front-end-project/](h
 - Users can remove a movie from their favorites.
 - Users can infinite scroll to load more movies.
 
+All of the data is being fetched from The Movie Database (TMDB) API and rendered to the site. From concept I built out the design in Figma and wrote the core logic in TypeScript.
+
 ## Preview
 
 ![MoviePod](assets/moviepod.gif)
