@@ -14,7 +14,7 @@ As a person who loves movies, I wanted to find top-rated movies and also have th
 
 ## Live Demo
 
-Try the application live at [https://techmatlock.github.io/front-end-project/](https://techmatlock.github.io/front-end-project/)
+Try the application live at [https://techmatlock.github.io/moviepod/](https://techmatlock.github.io/moviepod/)
 
 ## Features
 
