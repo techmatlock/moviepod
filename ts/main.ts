@@ -136,7 +136,7 @@ function renderCard(movieData: Movie): HTMLElement {
   $cardImage.setAttribute('class', 'card-img');
   $cardImage.setAttribute(
     'src',
-    'http://image.tmdb.org/t/p/w500/' + movieData.poster_path,
+    'https://image.tmdb.org/t/p/w500/' + movieData.poster_path,
   );
   $cardImage.setAttribute('alt', movieData.title + ' Movie Poster');
 
@@ -219,7 +219,7 @@ function renderCard(movieData: Movie): HTMLElement {
 function renderMovieDetails(movieData: Movie): void {
   $movieImg.setAttribute(
     'src',
-    'http://image.tmdb.org/t/p/w500/' + movieData.poster_path,
+    'https://image.tmdb.org/t/p/w500/' + movieData.poster_path,
   );
   $movieImg.setAttribute('alt', movieData.title + ' Movie Poster');
 
