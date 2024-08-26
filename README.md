@@ -31,6 +31,20 @@ All of the data is being fetched from The Movie Database (TMDB) API and rendered
 
 ![MoviePod](assets/moviepod.gif)
 
+## Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd your-repo-name
+    ```
+3. Install all dependencies with `npm install`.
+
+4. Run the TypeScript compiler with `npx tsc --watch`.
+   
 ## Challenges Encountered
 
 - The response data I fetched from my API was difficult to assert my interface Movie since the response data had a property inside that needed to be accessed before getting the array of movie objects. Once I waited for the fulfilled promise, then I asserted the response data.results as my Movie interface.
