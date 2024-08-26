@@ -2,9 +2,14 @@
 
 A frontend TypeScript project for users who want to find top-rated movies.
 
-## Why I Built This
+## Table of Contents
 
-As a person who loves movies, I wanted to find top-rated movies and also have the option to favorite and save to a favorites list.
+- [Technologies Used](#technologies-used)
+- [Live Demo](#live-demo)
+- [Features](#features)
+- [Preview](#preview)
+- [Installation](#installation)
+- [Challenges Encountered](#challenges-encountered)
 
 ## Technologies Used
 
