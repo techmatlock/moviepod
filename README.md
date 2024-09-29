@@ -11,15 +11,19 @@ A frontend TypeScript project for users who want to find top-rated movies.
 - [Installation](#installation)
 - [Challenges Encountered](#challenges-encountered)
 
+## Preview
+
+![MoviePod](assets/moviepod.gif)
+
+## Live Demo
+
+Try the application live at [https://techmatlock.github.io/moviepod/](https://techmatlock.github.io/moviepod/)
+
 ## Technologies Used
 
 - TypeScript
 - HTML5
 - CSS3
-
-## Live Demo
-
-Try the application live at [https://techmatlock.github.io/moviepod/](https://techmatlock.github.io/moviepod/)
 
 ## Features
 
@@ -31,10 +35,6 @@ Try the application live at [https://techmatlock.github.io/moviepod/](https://te
 - Users can infinite scroll to load more movies.
 
 All of the data is being fetched from The Movie Database (TMDB) API and rendered to the site. From concept I built out the design in Figma and wrote the core logic in TypeScript.
-
-## Preview
-
-![MoviePod](assets/moviepod.gif)
 
 ## Installation
 
